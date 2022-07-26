@@ -1,4 +1,7 @@
-﻿using System.Text;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using System.Globalization;
+using System.Text;
 
 namespace RenameRecursivelly
 {
@@ -24,10 +27,7 @@ namespace RenameRecursivelly
                 return;
             }
 
-            DialogResult dialogResult = MessageBox.Show(String.Format("Přejmenovat ve složce {0}?", dir), "Potvrďte", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
-            {
-                Queue<Utils.ItemInfo> list = new Queue<Utils.ItemInfo>();
+            Queue<Utils.ItemInfo> list = new Queue<Utils.ItemInfo>();
                 Utils.Utils.DirSearch(dir, list, checkBox1.Checked, checkBox2.Checked);
 
                 if (list.Count == 0)
@@ -36,12 +36,21 @@ namespace RenameRecursivelly
                     return;
                 }
 
+            var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
+            {
+                HasHeaderRecord = false,
+            };
 
+            using (var writer = new StreamWriter(File.Open(Utils.Utils.getLogFilename(), FileMode.Append)))
+            using (var csv = new CsvWriter(writer, csvConfig))
+            {
+                csv.WriteHeader<Utils.ItemInfo>();
+                csv.NextRecord();
                 Form2 frmDialogRename = new Form2();
                 while (list.Count > 0)
                 {
                     Utils.ItemInfo item = list.Dequeue();
-                    
+
                     DialogResult result = frmDialogRename.OpenDialog(item);
                     if (result == DialogResult.Abort)
                     {
@@ -51,18 +60,28 @@ namespace RenameRecursivelly
                     {
                         item.normalizedName = frmDialogRename.newName;
                         textBox1.Text += Environment.NewLine + String.Format("({0}) {1} prejmenovano na {2}", item.path, item.name, item.normalizedName);
-                        if (item.isDir)
+
+                        csv.WriteRecord(item);
+                        csv.NextRecord();
+                        try
                         {
-                            System.IO.Directory.Move(Path.Combine(item.path, item.name), Path.Combine(item.path, item.normalizedName));
-                        }
-                        else
+                            if (item.isDir)
+                            {
+                                System.IO.Directory.Move(Path.Combine(item.path, item.name), Path.Combine(item.path, item.normalizedName));
+                            }
+                            else
+                            {
+                                System.IO.File.Move(Path.Combine(item.path, item.name), Path.Combine(item.path, item.normalizedName));
+                            }
+                        } catch (Exception exc)
                         {
-                            System.IO.File.Move(Path.Combine(item.path, item.name), Path.Combine(item.path, item.normalizedName));
+                            MessageBox.Show(String.Format("Došlo k chybě: {0}{1}{2}", exc.Message, Environment.NewLine, exc.StackTrace));
                         }
                     }
                 }
-
             }
+
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
