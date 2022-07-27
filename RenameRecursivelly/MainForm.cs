@@ -58,7 +58,7 @@ namespace RenameRecursivelly
                     }
                     if (result == DialogResult.Yes)
                     {
-                        tbLog.Text += Environment.NewLine + String.Format("({0}) {1} prejmenovano na {2}", item.path, item.name, item.normalizedName);
+                        tbLog.Text += ((tbLog.Text.Length > 0) ? Environment.NewLine : "") + String.Format("{3} \"{1}\" --> \"{2}\" ({0})", item.path, item.name, item.normalizedName, (item.isDir ? "Adresář" : "Soubor"));
 
                         csv.WriteRecord(item);
                         csv.NextRecord();
