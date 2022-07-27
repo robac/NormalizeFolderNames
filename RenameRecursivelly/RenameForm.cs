@@ -44,7 +44,7 @@ namespace RenameRecursivelly
                 return;
             }
 
-            string normalizedName = Utils.Utils.RemoveDiacritics(newName);
+            string normalizedName = newName.NormalizeString();
             if (newName != normalizedName)
             {
                 MessageBox.Show("Nový název nesplňuje podmínky!");

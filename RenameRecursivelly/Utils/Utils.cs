@@ -4,17 +4,18 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System;
+using System.Text.RegularExpressions;
 
 namespace RenameRecursivelly.Utils
 {
-    public class Utils
+    public static class Utils
     {
-        public static string RemoveDiacritics(string text)
+        private static string RemoveDiacritics(string text)
         {
             var normalizedString = text.Normalize(NormalizationForm.FormD);
             var stringBuilder = new StringBuilder(capacity: normalizedString.Length);
 
-            bool lastcharWhitespace = false;
             for (int i = 0; i < normalizedString.Length; i++)
             {
                 char c = normalizedString[i];
@@ -22,16 +23,7 @@ namespace RenameRecursivelly.Utils
            
                 if (unicodeCategory != UnicodeCategory.NonSpacingMark)
                 {
-                    if (c.Equals(' ') || c.Equals('_'))
-                    {
-                        if (!lastcharWhitespace) stringBuilder.Append('_');
-                        lastcharWhitespace = true;
-                    }
-                    else
-                    {
-                        lastcharWhitespace = false;
                         stringBuilder.Append(c);
-                    }
                 }
             }
 
@@ -40,6 +32,17 @@ namespace RenameRecursivelly.Utils
                 .Normalize(NormalizationForm.FormC);
         }
 
+        private static string RemoveWhitespace(string text)
+        {
+            string pattern = @"[\s,'_']+";
+            string replacement = "_";
+            return Regex.Replace(text, pattern, replacement);
+        }
+
+        public static string NormalizeString(this string text)
+        {
+            return RemoveWhitespace(RemoveDiacritics(text));
+        }
 
         public static void DirSearch(string parentDir, Queue<ItemInfo> output, bool doFiles, bool doFolders)
         {
@@ -48,7 +51,7 @@ namespace RenameRecursivelly.Utils
                 foreach (string f in Directory.GetFiles(parentDir))
                 {
                     string filename = Path.GetFileNameWithoutExtension(f);
-                    string normalizedFilename = RemoveDiacritics(filename);
+                    string normalizedFilename = filename.NormalizeString();
                     if (filename != normalizedFilename)
                     {
                         ItemInfo item = new ItemInfo(parentDir, filename + Path.GetExtension(f), normalizedFilename, false);
