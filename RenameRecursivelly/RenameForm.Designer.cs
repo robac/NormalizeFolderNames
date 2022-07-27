@@ -130,7 +130,6 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "RenameForm";
             this.Text = "Přejmenovat soubor";
-            this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
