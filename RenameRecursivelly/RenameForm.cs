@@ -4,7 +4,7 @@ namespace RenameRecursivelly
 {
     public partial class RenameForm : Form
     {
-        public string newName = "";
+        private ItemInfo item;
 
         public RenameForm()
         {
@@ -13,6 +13,8 @@ namespace RenameRecursivelly
 
         public DialogResult OpenDialog(ItemInfo item)
         {
+            this.item = item;
+
             this.lblFolder.Text = Path.GetDirectoryName(item.path);
             this.tbOriginalName.Text = Path.GetFileName(item.name);
 
@@ -31,7 +33,9 @@ namespace RenameRecursivelly
 
             this.ActiveControl = this.btnRename;
             this.CenterToScreen();
-            return this.ShowDialog();
+            DialogResult res = this.ShowDialog();
+            this.item = null;
+            return res;
         }
 
         private void btnRename_Click(object sender, EventArgs e)
@@ -52,7 +56,7 @@ namespace RenameRecursivelly
             }
             this.DialogResult = DialogResult.Yes;
             
-            this.newName = tbNewName.Text.Trim()+lblExtension.Text;
+            this.item.normalizedName = tbNewName.Text.Trim()+lblExtension.Text;
             this.Close();
         }
 

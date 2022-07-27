@@ -29,105 +29,112 @@
         private void InitializeComponent()
         {
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.lblFolder = new System.Windows.Forms.Label();
+            this.btnChooseFolder = new System.Windows.Forms.Button();
+            this.btnRename = new System.Windows.Forms.Button();
+            this.tbLog = new System.Windows.Forms.TextBox();
+            this.btnFinish = new System.Windows.Forms.Button();
+            this.cbRenameFiles = new System.Windows.Forms.CheckBox();
+            this.cbRenameFolders = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
-            // label1
+            // lblFolder
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.Red;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(114, 25);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "-- nevybráno";
+            this.lblFolder.AutoSize = true;
+            this.lblFolder.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
+            this.lblFolder.ForeColor = System.Drawing.Color.Red;
+            this.lblFolder.Location = new System.Drawing.Point(8, 5);
+            this.lblFolder.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFolder.Name = "lblFolder";
+            this.lblFolder.Size = new System.Drawing.Size(78, 15);
+            this.lblFolder.TabIndex = 0;
+            this.lblFolder.Text = "-- nevybráno";
             // 
-            // button1
+            // btnChooseFolder
             // 
-            this.button1.Location = new System.Drawing.Point(12, 50);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(156, 34);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Vyber adresář:";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnChooseFolder.Location = new System.Drawing.Point(8, 30);
+            this.btnChooseFolder.Margin = new System.Windows.Forms.Padding(2);
+            this.btnChooseFolder.Name = "btnChooseFolder";
+            this.btnChooseFolder.Size = new System.Drawing.Size(109, 25);
+            this.btnChooseFolder.TabIndex = 1;
+            this.btnChooseFolder.Text = "Vyber adresář:";
+            this.btnChooseFolder.UseVisualStyleBackColor = true;
+            this.btnChooseFolder.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // btnRename
             // 
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button2.Location = new System.Drawing.Point(12, 217);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(156, 34);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Přejmenovat";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnRename.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnRename.Location = new System.Drawing.Point(8, 130);
+            this.btnRename.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRename.Name = "btnRename";
+            this.btnRename.Size = new System.Drawing.Size(109, 25);
+            this.btnRename.TabIndex = 2;
+            this.btnRename.Text = "Přejmenovat";
+            this.btnRename.UseVisualStyleBackColor = true;
+            this.btnRename.Click += new System.EventHandler(this.button2_Click);
             // 
-            // textBox1
+            // tbLog
             // 
-            this.textBox1.Location = new System.Drawing.Point(210, 50);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(991, 482);
-            this.textBox1.TabIndex = 3;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.tbLog.Location = new System.Drawing.Point(147, 30);
+            this.tbLog.Margin = new System.Windows.Forms.Padding(2);
+            this.tbLog.Multiline = true;
+            this.tbLog.Name = "tbLog";
+            this.tbLog.ReadOnly = true;
+            this.tbLog.Size = new System.Drawing.Size(695, 291);
+            this.tbLog.TabIndex = 3;
             // 
-            // button3
+            // btnFinish
             // 
-            this.button3.Location = new System.Drawing.Point(12, 498);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(156, 34);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Konec";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnFinish.Location = new System.Drawing.Point(8, 299);
+            this.btnFinish.Margin = new System.Windows.Forms.Padding(2);
+            this.btnFinish.Name = "btnFinish";
+            this.btnFinish.Size = new System.Drawing.Size(109, 25);
+            this.btnFinish.TabIndex = 4;
+            this.btnFinish.Text = "Konec";
+            this.btnFinish.UseVisualStyleBackColor = true;
+            this.btnFinish.Click += new System.EventHandler(this.button3_Click);
             // 
-            // checkBox1
+            // cbRenameFiles
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Location = new System.Drawing.Point(12, 111);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(104, 29);
-            this.checkBox1.TabIndex = 5;
-            this.checkBox1.Text = "soubory";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cbRenameFiles.AutoSize = true;
+            this.cbRenameFiles.Checked = true;
+            this.cbRenameFiles.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbRenameFiles.Location = new System.Drawing.Point(8, 67);
+            this.cbRenameFiles.Margin = new System.Windows.Forms.Padding(2);
+            this.cbRenameFiles.Name = "cbRenameFiles";
+            this.cbRenameFiles.Size = new System.Drawing.Size(69, 19);
+            this.cbRenameFiles.TabIndex = 5;
+            this.cbRenameFiles.Text = "soubory";
+            this.cbRenameFiles.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // cbRenameFolders
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Checked = true;
-            this.checkBox2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox2.Location = new System.Drawing.Point(12, 157);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(105, 29);
-            this.checkBox2.TabIndex = 6;
-            this.checkBox2.Text = "adresáře";
-            this.checkBox2.UseVisualStyleBackColor = true;
-            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            this.cbRenameFolders.AutoSize = true;
+            this.cbRenameFolders.Checked = true;
+            this.cbRenameFolders.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbRenameFolders.Location = new System.Drawing.Point(8, 94);
+            this.cbRenameFolders.Margin = new System.Windows.Forms.Padding(2);
+            this.cbRenameFolders.Name = "cbRenameFolders";
+            this.cbRenameFolders.Size = new System.Drawing.Size(70, 19);
+            this.cbRenameFolders.TabIndex = 6;
+            this.cbRenameFolders.Text = "adresáře";
+            this.cbRenameFolders.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1213, 544);
-            this.Controls.Add(this.checkBox2);
-            this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.label1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.ClientSize = new System.Drawing.Size(849, 326);
+            this.Controls.Add(this.cbRenameFolders);
+            this.Controls.Add(this.cbRenameFiles);
+            this.Controls.Add(this.btnFinish);
+            this.Controls.Add(this.tbLog);
+            this.Controls.Add(this.btnRename);
+            this.Controls.Add(this.btnChooseFolder);
+            this.Controls.Add(this.lblFolder);
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Name = "MainForm";
+            this.Text = "Přejmenovávač";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -136,12 +143,12 @@
         #endregion
 
         private FolderBrowserDialog folderBrowserDialog1;
-        private Label label1;
-        private Button button1;
-        private Button button2;
-        private TextBox textBox1;
-        private Button button3;
-        private CheckBox checkBox1;
-        private CheckBox checkBox2;
+        private Label lblFolder;
+        private Button btnChooseFolder;
+        private Button btnRename;
+        private TextBox tbLog;
+        private Button btnFinish;
+        private CheckBox cbRenameFiles;
+        private CheckBox cbRenameFolders;
     }
 }

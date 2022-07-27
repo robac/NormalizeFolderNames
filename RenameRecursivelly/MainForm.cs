@@ -21,14 +21,14 @@ namespace RenameRecursivelly
                 return;
             }
 
-            if (!(checkBox1.Checked || checkBox2.Checked))
+            if (!(cbRenameFiles.Checked || cbRenameFolders.Checked))
             {
                 MessageBox.Show("Nejsou vybrané ani soubory ani adresáře!");
                 return;
             }
 
             Queue<Utils.ItemInfo> list = new Queue<Utils.ItemInfo>();
-                Utils.Utils.DirSearch(dir, list, checkBox1.Checked, checkBox2.Checked);
+                Utils.Utils.DirSearch(dir, list, cbRenameFiles.Checked, cbRenameFolders.Checked);
 
                 if (list.Count == 0)
                 {
@@ -58,8 +58,7 @@ namespace RenameRecursivelly
                     }
                     if (result == DialogResult.Yes)
                     {
-                        item.normalizedName = frmDialogRename.newName;
-                        textBox1.Text += Environment.NewLine + String.Format("({0}) {1} prejmenovano na {2}", item.path, item.name, item.normalizedName);
+                        tbLog.Text += Environment.NewLine + String.Format("({0}) {1} prejmenovano na {2}", item.path, item.name, item.normalizedName);
 
                         csv.WriteRecord(item);
                         csv.NextRecord();
@@ -88,24 +87,15 @@ namespace RenameRecursivelly
         {
             folderBrowserDialog1.ShowDialog();
             string text = folderBrowserDialog1.SelectedPath;
-            label1.Text = (text.Length > 0) ? text : "-- nevybráno";
-            label1.ForeColor = (text.Length > 0) ? Color.Black : Color.Red;
-            this.ActiveControl = this.button2;
+            lblFolder.Text = (text.Length > 0) ? text : "-- nevybráno";
+            lblFolder.ForeColor = (text.Length > 0) ? Color.Black : Color.Red;
+            this.ActiveControl = this.btnRename;
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button3_Click(object sender, EventArgs e)
+         private void button3_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void checkBox2_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
-    }
+     }
 }
