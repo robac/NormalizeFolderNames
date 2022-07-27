@@ -36,6 +36,7 @@
             this.btnFinish = new System.Windows.Forms.Button();
             this.cbRenameFiles = new System.Windows.Forms.CheckBox();
             this.cbRenameFolders = new System.Windows.Forms.CheckBox();
+            this.cmbMaxItems = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lblFolder
@@ -85,7 +86,7 @@
             // 
             // btnFinish
             // 
-            this.btnFinish.Location = new System.Drawing.Point(8, 299);
+            this.btnFinish.Location = new System.Drawing.Point(8, 296);
             this.btnFinish.Margin = new System.Windows.Forms.Padding(2);
             this.btnFinish.Name = "btnFinish";
             this.btnFinish.Size = new System.Drawing.Size(109, 25);
@@ -120,11 +121,28 @@
             this.cbRenameFolders.Text = "adresáře";
             this.cbRenameFolders.UseVisualStyleBackColor = true;
             // 
+            // cmbMaxItems
+            // 
+            this.cmbMaxItems.DisplayMember = "0";
+            this.cmbMaxItems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbMaxItems.FormattingEnabled = true;
+            this.cmbMaxItems.Items.AddRange(new object[] {
+            "100",
+            "200",
+            "500",
+            "1000"});
+            this.cmbMaxItems.Location = new System.Drawing.Point(8, 175);
+            this.cmbMaxItems.Name = "cmbMaxItems";
+            this.cmbMaxItems.Size = new System.Drawing.Size(121, 23);
+            this.cmbMaxItems.TabIndex = 7;
+            this.cmbMaxItems.ValueMember = "100";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(849, 326);
+            this.ClientSize = new System.Drawing.Size(849, 333);
+            this.Controls.Add(this.cmbMaxItems);
             this.Controls.Add(this.cbRenameFolders);
             this.Controls.Add(this.cbRenameFiles);
             this.Controls.Add(this.btnFinish);
@@ -135,6 +153,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.Text = "Přejmenovávač";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,5 +169,6 @@
         private Button btnFinish;
         private CheckBox cbRenameFiles;
         private CheckBox cbRenameFolders;
+        private ComboBox cmbMaxItems;
     }
 }

@@ -44,12 +44,14 @@ namespace RenameRecursivelly.Utils
             return RemoveWhitespace(RemoveDiacritics(text));
         }
 
-        public static void DirSearch(string parentDir, Queue<ItemInfo> output, bool doFiles, bool doFolders)
+        public static void DirSearch(string parentDir, Queue<ItemInfo> output, bool doFiles, bool doFolders, int maxItems)
         {
             if (doFiles)
             {
                 foreach (string f in Directory.GetFiles(parentDir))
                 {
+                    if (maxItems <= output.Count) return;
+
                     string filename = Path.GetFileNameWithoutExtension(f);
                     string normalizedFilename = filename.NormalizeString();
                     if (filename != normalizedFilename)
@@ -62,7 +64,9 @@ namespace RenameRecursivelly.Utils
 
             foreach (string d in Directory.GetDirectories(parentDir))
             {
-                DirSearch(d, output, doFiles, doFolders);
+                if (maxItems <= output.Count) return;
+
+                DirSearch(d, output, doFiles, doFolders, maxItems);
                 if (doFolders) 
                 {
                     string dirname = Path.GetFileName(d);

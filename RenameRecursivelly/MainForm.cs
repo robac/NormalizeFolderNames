@@ -28,7 +28,7 @@ namespace RenameRecursivelly
             }
 
             Queue<Utils.ItemInfo> list = new Queue<Utils.ItemInfo>();
-                Utils.Utils.DirSearch(dir, list, cbRenameFiles.Checked, cbRenameFolders.Checked);
+                Utils.Utils.DirSearch(dir, list, cbRenameFiles.Checked, cbRenameFolders.Checked, 100);
 
                 if (list.Count == 0)
                 {
@@ -97,5 +97,9 @@ namespace RenameRecursivelly
             this.Close();
         }
 
-     }
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            cmbMaxItems.SelectedIndex = 0;
+        }
+    }
 }
