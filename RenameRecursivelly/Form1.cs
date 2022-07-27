@@ -89,6 +89,7 @@ namespace RenameRecursivelly
             folderBrowserDialog1.ShowDialog();
             string text = folderBrowserDialog1.SelectedPath;
             label1.Text = (text.Length > 0) ? text : "-- nevybráno";
+            label1.ForeColor = (text.Length > 0) ? Color.Black : Color.Red;
             this.ActiveControl = this.button2;
         }
 
