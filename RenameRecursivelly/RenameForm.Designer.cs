@@ -28,100 +28,107 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
+            this.lblFolder = new System.Windows.Forms.Label();
+            this.tbNewName = new System.Windows.Forms.TextBox();
+            this.btnRename = new System.Windows.Forms.Button();
+            this.btnSkip = new System.Windows.Forms.Button();
+            this.btnFinish = new System.Windows.Forms.Button();
+            this.lblExtension = new System.Windows.Forms.Label();
+            this.tbOriginalName = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
-            // label1
+            // lblFolder
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(34, 24);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(61, 25);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
+            this.lblFolder.AutoSize = true;
+            this.lblFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
+            this.lblFolder.Location = new System.Drawing.Point(24, 14);
+            this.lblFolder.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFolder.Name = "lblFolder";
+            this.lblFolder.Size = new System.Drawing.Size(39, 15);
+            this.lblFolder.TabIndex = 0;
+            this.lblFolder.Text = "label1";
             // 
-            // label2
+            // tbNewName
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(24, 68);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(115, 48);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "label2";
+            this.tbNewName.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tbNewName.ForeColor = System.Drawing.Color.Red;
+            this.tbNewName.Location = new System.Drawing.Point(24, 91);
+            this.tbNewName.Margin = new System.Windows.Forms.Padding(2);
+            this.tbNewName.Name = "tbNewName";
+            this.tbNewName.Size = new System.Drawing.Size(799, 34);
+            this.tbNewName.TabIndex = 2;
             // 
-            // textBox1
+            // btnRename
             // 
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox1.ForeColor = System.Drawing.Color.Red;
-            this.textBox1.Location = new System.Drawing.Point(34, 140);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(561, 55);
-            this.textBox1.TabIndex = 2;
+            this.btnRename.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnRename.ForeColor = System.Drawing.Color.Red;
+            this.btnRename.Location = new System.Drawing.Point(24, 142);
+            this.btnRename.Margin = new System.Windows.Forms.Padding(2);
+            this.btnRename.Name = "btnRename";
+            this.btnRename.Size = new System.Drawing.Size(90, 25);
+            this.btnRename.TabIndex = 3;
+            this.btnRename.Text = "Přejmenovat";
+            this.btnRename.UseVisualStyleBackColor = true;
+            this.btnRename.Click += new System.EventHandler(this.btnRename_Click);
             // 
-            // button1
+            // btnSkip
             // 
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button1.ForeColor = System.Drawing.Color.Red;
-            this.button1.Location = new System.Drawing.Point(34, 234);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(128, 34);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Přejmenovat";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnSkip.Location = new System.Drawing.Point(133, 142);
+            this.btnSkip.Margin = new System.Windows.Forms.Padding(2);
+            this.btnSkip.Name = "btnSkip";
+            this.btnSkip.Size = new System.Drawing.Size(78, 25);
+            this.btnSkip.TabIndex = 4;
+            this.btnSkip.Text = "Přeskočit";
+            this.btnSkip.UseVisualStyleBackColor = true;
+            this.btnSkip.Click += new System.EventHandler(this.btnSkip_Click);
             // 
-            // button2
+            // btnFinish
             // 
-            this.button2.Location = new System.Drawing.Point(177, 234);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(112, 34);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Přeskočit";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnFinish.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnFinish.Location = new System.Drawing.Point(745, 142);
+            this.btnFinish.Margin = new System.Windows.Forms.Padding(2);
+            this.btnFinish.Name = "btnFinish";
+            this.btnFinish.Size = new System.Drawing.Size(78, 25);
+            this.btnFinish.TabIndex = 5;
+            this.btnFinish.Text = "Konec";
+            this.btnFinish.UseVisualStyleBackColor = true;
+            this.btnFinish.Click += new System.EventHandler(this.btnFinish_Click);
             // 
-            // button3
+            // lblExtension
             // 
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.button3.Location = new System.Drawing.Point(676, 234);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(112, 34);
-            this.button3.TabIndex = 5;
-            this.button3.Text = "Konec";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.lblExtension.AutoSize = true;
+            this.lblExtension.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblExtension.ForeColor = System.Drawing.Color.Red;
+            this.lblExtension.Location = new System.Drawing.Point(839, 97);
+            this.lblExtension.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblExtension.Name = "lblExtension";
+            this.lblExtension.Size = new System.Drawing.Size(65, 28);
+            this.lblExtension.TabIndex = 7;
+            this.lblExtension.Text = "label4";
             // 
-            // label4
+            // tbOriginalName
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(615, 143);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(115, 48);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "label4";
+            this.tbOriginalName.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tbOriginalName.Location = new System.Drawing.Point(24, 47);
+            this.tbOriginalName.Name = "tbOriginalName";
+            this.tbOriginalName.ReadOnly = true;
+            this.tbOriginalName.Size = new System.Drawing.Size(799, 34);
+            this.tbOriginalName.TabIndex = 8;
             // 
-            // Form2
+            // RenameForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 293);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Name = "Form2";
+            this.ClientSize = new System.Drawing.Size(915, 176);
+            this.Controls.Add(this.tbOriginalName);
+            this.Controls.Add(this.lblExtension);
+            this.Controls.Add(this.btnFinish);
+            this.Controls.Add(this.btnSkip);
+            this.Controls.Add(this.btnRename);
+            this.Controls.Add(this.tbNewName);
+            this.Controls.Add(this.lblFolder);
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Name = "RenameForm";
             this.Text = "Přejmenovat soubor";
             this.Load += new System.EventHandler(this.Form2_Load);
             this.ResumeLayout(false);
@@ -131,12 +138,12 @@
 
         #endregion
 
-        private Label label1;
-        private Label label2;
-        private TextBox textBox1;
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Label label4;
+        private Label lblFolder;
+        private TextBox tbNewName;
+        private Button btnRename;
+        private Button btnSkip;
+        private Button btnFinish;
+        private Label lblExtension;
+        private TextBox tbOriginalName;
     }
 }

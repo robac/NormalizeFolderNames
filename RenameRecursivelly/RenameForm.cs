@@ -25,28 +25,30 @@ namespace RenameRecursivelly
 
         public DialogResult OpenDialog(Utils.ItemInfo item)
         {
-            this.label1.Text = Path.GetDirectoryName(item.path);
-            this.label2.Text = Path.GetFileName(item.name);
+            this.lblFolder.Text = Path.GetDirectoryName(item.path);
+            this.tbOriginalName.Text = Path.GetFileName(item.name);
+
+            this.Text = item.isDir ? "Přejmenovat adresář" : "Přejmenovat soubor";
             
-            this.textBox1.Select(0, 0);
+            this.tbNewName.Select(0, 0);
             if (item.isDir)
             {
-                label4.Text = "";
-                this.textBox1.Text = Path.GetFileName(item.normalizedName);
+                lblExtension.Text = "";
+                this.tbNewName.Text = Path.GetFileName(item.normalizedName);
             } else
             {
-                label4.Text = Path.GetExtension(item.name);
-                this.textBox1.Text = Path.GetFileNameWithoutExtension(item.normalizedName);
+                lblExtension.Text = Path.GetExtension(item.name);
+                this.tbNewName.Text = Path.GetFileNameWithoutExtension(item.normalizedName);
             }
 
-            this.ActiveControl = this.button1;
+            this.ActiveControl = this.btnRename;
             this.CenterToScreen();
             return this.ShowDialog();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnRename_Click(object sender, EventArgs e)
         {
-            string newName = this.textBox1.Text.Trim();
+            string newName = this.tbNewName.Text.Trim();
 
             if (newName.Length == 0)
             {
@@ -62,17 +64,17 @@ namespace RenameRecursivelly
             }
             this.DialogResult = DialogResult.Yes;
             
-            this.newName = textBox1.Text.Trim()+label4.Text;
+            this.newName = tbNewName.Text.Trim()+lblExtension.Text;
             this.Close();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnSkip_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void btnFinish_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Abort;
             this.Close();
