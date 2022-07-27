@@ -1,6 +1,6 @@
 ﻿namespace RenameRecursivelly
 {
-    partial class Form2
+    partial class RenameForm
     {
         /// <summary>
         /// Required designer variable.

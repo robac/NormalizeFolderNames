@@ -46,7 +46,7 @@ namespace RenameRecursivelly
             {
                 csv.WriteHeader<Utils.ItemInfo>();
                 csv.NextRecord();
-                Form2 frmDialogRename = new Form2();
+                RenameForm frmDialogRename = new RenameForm();
                 while (list.Count > 0)
                 {
                     Utils.ItemInfo item = list.Dequeue();

@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace RenameRecursivelly
 {
-    public partial class Form2 : Form
+    public partial class RenameForm : Form
     {
         public string newName = "";
-        public Form2()
+        public RenameForm()
         {
             InitializeComponent();
         }
