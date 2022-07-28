@@ -8,11 +8,14 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.Collections.Generic;
 using System.Configuration;
+using System.ComponentModel;
+using System.Threading;
 
 namespace RenameRecursivelly
 {
     public partial class MainForm : Form
     {
+        private BackgroundWorker bwScan = new BackgroundWorker();
 
         static string ReadSetting(string key, string defaultValue)
         {
@@ -53,9 +56,36 @@ namespace RenameRecursivelly
             }
         }
 
+        private void bwScan_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            BackgroundWorker worker = sender as BackgroundWorker;
+
+            for (int i = 0; i < 10; i++)
+            {
+                Thread.Sleep(1000);
+                worker.ReportProgress(i);
+            }
+            e.Result = "Hovno";
+        }
+
+        private void bwScan_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            label1.Text = e.ProgressPercentage.ToString();
+        }
+
+        private void bwScan_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            label1.Text = (string)e.Result;
+        }
+
         public MainForm()
         {
             InitializeComponent();
+            bwScan.ProgressChanged += bwScan_ProgressChanged;
+            bwScan.DoWork += bwScan_DoWork;
+            bwScan.RunWorkerCompleted += bwScan_RunWorkerCompleted;
+            bwScan.WorkerReportsProgress = true;
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -180,6 +210,11 @@ namespace RenameRecursivelly
             this.tbLog.AppendText(Environment.NewLine + "---");
             this.tbLog.SelectionStart = this.tbLog.Text.Length;
             this.tbLog.ScrollToCaret();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            bwScan.RunWorkerAsync();
         }
     }
 }

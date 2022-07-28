@@ -132,7 +132,6 @@ namespace RenameRecursivelly
             this.lblCounter.Size = new System.Drawing.Size(70, 200);
             this.lblCounter.TabIndex = 9;
             this.lblCounter.Text = "label4";
-            this.lblCounter.Click += new System.EventHandler(this.lblCounter_Click);
             // 
             // tbMessage
             // 

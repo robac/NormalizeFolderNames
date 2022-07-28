@@ -39,6 +39,8 @@ namespace RenameRecursivelly
             this.cbRenameFiles = new System.Windows.Forms.CheckBox();
             this.cbRenameFolders = new System.Windows.Forms.CheckBox();
             this.cmbMaxItems = new System.Windows.Forms.ComboBox();
+            this.btnScan = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblFolder
@@ -67,7 +69,7 @@ namespace RenameRecursivelly
             // btnRename
             // 
             this.btnRename.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnRename.Location = new System.Drawing.Point(8, 130);
+            this.btnRename.Location = new System.Drawing.Point(8, 243);
             this.btnRename.Margin = new System.Windows.Forms.Padding(2);
             this.btnRename.Name = "btnRename";
             this.btnRename.Size = new System.Drawing.Size(109, 25);
@@ -134,17 +136,38 @@ namespace RenameRecursivelly
             "200",
             "500",
             "1000"});
-            this.cmbMaxItems.Location = new System.Drawing.Point(8, 175);
+            this.cmbMaxItems.Location = new System.Drawing.Point(8, 206);
             this.cmbMaxItems.Name = "cmbMaxItems";
-            this.cmbMaxItems.Size = new System.Drawing.Size(121, 23);
+            this.cmbMaxItems.Size = new System.Drawing.Size(109, 23);
             this.cmbMaxItems.TabIndex = 7;
             this.cmbMaxItems.ValueMember = "100";
+            // 
+            // btnScan
+            // 
+            this.btnScan.Location = new System.Drawing.Point(7, 143);
+            this.btnScan.Name = "btnScan";
+            this.btnScan.Size = new System.Drawing.Size(110, 23);
+            this.btnScan.TabIndex = 8;
+            this.btnScan.Text = "Skenovat";
+            this.btnScan.UseVisualStyleBackColor = true;
+            this.btnScan.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 169);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 15);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "label1";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(849, 333);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.btnScan);
             this.Controls.Add(this.cmbMaxItems);
             this.Controls.Add(this.cbRenameFolders);
             this.Controls.Add(this.cbRenameFiles);
@@ -173,5 +196,7 @@ namespace RenameRecursivelly
         private CheckBox cbRenameFiles;
         private CheckBox cbRenameFolders;
         private ComboBox cmbMaxItems;
+        private Button btnScan;
+        private Label label1;
     }
 }
