@@ -74,9 +74,10 @@ namespace RenameRecursivelly.Utils
                 {
                     folders.Enqueue(new ItemInfo(Path.Combine(currentDir.path, folder), "", "", true));
                 }
-                Thread.Sleep(10);
+#if DEBUG
+                Thread.Sleep(50);
+#endif
             }
-
             return result;
         }
     }
