@@ -16,7 +16,7 @@ namespace GenerateBordel
 
     public partial class Form1 : Form
     {
-        string[] dirNames = new string[] { "Jedna", "Pecka", "Tøi", "Žižka", "Major", "Àíkanka", "Pìt" };
+        string[] dirNames = new string[] { "Jedna", "Pecka", "Tøi", "Žižka", "Major", "Àíkanka", "Pet" };
         Queue<DirInfo> queue = new Queue<DirInfo>();
         
 
@@ -58,11 +58,11 @@ namespace GenerateBordel
                 for (int i = 1; i <= numSubdirs; i++)
                 {
                     StringBuilder sb = new StringBuilder();
-                    int numWords = rnd.Next(2) + 2;
+                    int numWords = rnd.Next(2) + 1;
                     for (int j = 0; j <= numWords; j++)
                     {
                         sb.Append(dirNames[rnd.Next(dirNames.Length)]);
-                        sb.Append((rnd.Next(3) == 0) ? " " : "");
+                        sb.Append((rnd.Next(4) == 0) ? " " : "");
                     }
                     string newName = Path.Combine(item.path, sb.ToString()).Trim();
                     queue.Enqueue(new DirInfo(item.depth+1, newName));

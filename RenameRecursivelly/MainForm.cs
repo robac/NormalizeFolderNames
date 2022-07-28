@@ -60,23 +60,34 @@ namespace RenameRecursivelly
         private void bwScan_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             BackgroundWorker? worker = sender as BackgroundWorker;
+            BackgroundScanFolder bwScanFolder = new BackgroundScanFolder();
 
-            for (int i = 0; i < 10; i++)
-            {
-                Thread.Sleep(1000);
-                worker.ReportProgress(i);
-            }
-            e.Result = "Hovno";
+            e.Result = bwScanFolder.DoWork(worker, new BackgroundScanFolderArgs(folderBrowserDialog1.SelectedPath, 1000));
         }
 
         private void bwScan_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
         {
-            label1.Text = e.ProgressPercentage.ToString();
+            BackgroundScanFolderRes progress = e.UserState as BackgroundScanFolderRes;
+            logMessage("-- Scan průběžné info");
+            logMessage(String.Format(" Složek: {0}", progress.dirCount));
+            logMessage(String.Format(" Souborů: {0}", progress.fileCount));
+            logMessage(String.Format(" Složek špatně: {0}", progress.wrongDirCount));
+            logMessage(String.Format(" Souborů špatně: {0}", progress.wrongFileCount));
+            pbScan.Value = (pbScan.Value == 100) ? 10 : (pbScan.Value + 10);
         }
 
         private void bwScan_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            label1.Text = e.Result as string;
+            BackgroundScanFolderRes progress = e.Result as BackgroundScanFolderRes;
+            logMessage("-- Scan VÝSLEDEK ---", true);
+            logMessage(String.Format(" Složek: {0}", progress.dirCount));
+            logMessage(String.Format(" Souborů: {0}", progress.fileCount));
+            logMessage(String.Format(" Složek špatně: {0}", progress.wrongDirCount));
+            logMessage(String.Format(" Souborů špatně: {0}", progress.wrongFileCount));
+            logMessage("");
+            logMessage("Scan skončil.");
+            pbScan.Visible = false;
+            btnScan.Enabled = true;
         }
 
         public MainForm()
@@ -217,10 +228,15 @@ namespace RenameRecursivelly
 
         private void button1_Click_1(object sender, EventArgs e)
         {
+            if (bwScan.IsBusy)
+            {
+                logMessage("Operace probíhá...");
+            }
             logMessage("Scan začíná...", true);
-            if (!bwScan.IsBusy) bwScan.RunWorkerAsync();
-            logMessage("Scan skončil...", true);
-
+            pbScan.Visible = true;
+            pbScan.Value = 0;
+            btnScan.Enabled = false;
+            bwScan.RunWorkerAsync();
         }
     }
 }

@@ -40,7 +40,7 @@ namespace RenameRecursivelly
             this.cbRenameFolders = new System.Windows.Forms.CheckBox();
             this.cmbMaxItems = new System.Windows.Forms.ComboBox();
             this.btnScan = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
+            this.pbScan = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
             // lblFolder
@@ -152,21 +152,20 @@ namespace RenameRecursivelly
             this.btnScan.UseVisualStyleBackColor = true;
             this.btnScan.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // label1
+            // pbScan
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 169);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 15);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "label1";
+            this.pbScan.Location = new System.Drawing.Point(8, 172);
+            this.pbScan.Name = "pbScan";
+            this.pbScan.Size = new System.Drawing.Size(109, 23);
+            this.pbScan.TabIndex = 9;
+            this.pbScan.Visible = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(849, 333);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.pbScan);
             this.Controls.Add(this.btnScan);
             this.Controls.Add(this.cmbMaxItems);
             this.Controls.Add(this.cbRenameFolders);
@@ -198,5 +197,6 @@ namespace RenameRecursivelly
         private ComboBox cmbMaxItems;
         private Button btnScan;
         private Label label1;
+        private ProgressBar pbScan;
     }
 }
