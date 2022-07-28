@@ -122,14 +122,17 @@ namespace RenameRecursivelly
             // lblCounter
             // 
             this.lblCounter.AutoSize = true;
-            this.lblCounter.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblCounter.ForeColor = System.Drawing.Color.Red;
-            this.lblCounter.Location = new System.Drawing.Point(839, 14);
+            this.lblCounter.Dock = System.Windows.Forms.DockStyle.Right;
+            this.lblCounter.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblCounter.ForeColor = System.Drawing.Color.OliveDrab;
+            this.lblCounter.Location = new System.Drawing.Point(923, 0);
             this.lblCounter.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCounter.Name = "lblCounter";
-            this.lblCounter.Size = new System.Drawing.Size(65, 28);
+            this.lblCounter.Padding = new System.Windows.Forms.Padding(0, 172, 0, 0);
+            this.lblCounter.Size = new System.Drawing.Size(70, 200);
             this.lblCounter.TabIndex = 9;
             this.lblCounter.Text = "label4";
+            this.lblCounter.Click += new System.EventHandler(this.lblCounter_Click);
             // 
             // tbMessage
             // 
@@ -145,7 +148,7 @@ namespace RenameRecursivelly
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(915, 213);
+            this.ClientSize = new System.Drawing.Size(993, 213);
             this.Controls.Add(this.tbMessage);
             this.Controls.Add(this.lblCounter);
             this.Controls.Add(this.tbOriginalName);
