@@ -38,6 +38,7 @@ namespace RenameRecursivelly
             this.lblExtension = new System.Windows.Forms.Label();
             this.tbOriginalName = new System.Windows.Forms.TextBox();
             this.lblCounter = new System.Windows.Forms.Label();
+            this.tbMessage = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lblFolder
@@ -65,7 +66,7 @@ namespace RenameRecursivelly
             // 
             this.btnRename.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnRename.ForeColor = System.Drawing.Color.Red;
-            this.btnRename.Location = new System.Drawing.Point(24, 142);
+            this.btnRename.Location = new System.Drawing.Point(24, 177);
             this.btnRename.Margin = new System.Windows.Forms.Padding(2);
             this.btnRename.Name = "btnRename";
             this.btnRename.Size = new System.Drawing.Size(90, 25);
@@ -76,7 +77,7 @@ namespace RenameRecursivelly
             // 
             // btnSkip
             // 
-            this.btnSkip.Location = new System.Drawing.Point(133, 142);
+            this.btnSkip.Location = new System.Drawing.Point(132, 177);
             this.btnSkip.Margin = new System.Windows.Forms.Padding(2);
             this.btnSkip.Name = "btnSkip";
             this.btnSkip.Size = new System.Drawing.Size(78, 25);
@@ -88,7 +89,7 @@ namespace RenameRecursivelly
             // btnFinish
             // 
             this.btnFinish.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnFinish.Location = new System.Drawing.Point(745, 142);
+            this.btnFinish.Location = new System.Drawing.Point(745, 177);
             this.btnFinish.Margin = new System.Windows.Forms.Padding(2);
             this.btnFinish.Name = "btnFinish";
             this.btnFinish.Size = new System.Drawing.Size(78, 25);
@@ -130,11 +131,23 @@ namespace RenameRecursivelly
             this.lblCounter.TabIndex = 9;
             this.lblCounter.Text = "label4";
             // 
+            // tbMessage
+            // 
+            this.tbMessage.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.tbMessage.ForeColor = System.Drawing.Color.Red;
+            this.tbMessage.Location = new System.Drawing.Point(24, 130);
+            this.tbMessage.Name = "tbMessage";
+            this.tbMessage.Size = new System.Drawing.Size(799, 23);
+            this.tbMessage.TabIndex = 10;
+            this.tbMessage.Visible = false;
+            this.tbMessage.TextChanged += new System.EventHandler(this.tbMessage_TextChanged);
+            // 
             // RenameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(915, 176);
+            this.ClientSize = new System.Drawing.Size(915, 213);
+            this.Controls.Add(this.tbMessage);
             this.Controls.Add(this.lblCounter);
             this.Controls.Add(this.tbOriginalName);
             this.Controls.Add(this.lblExtension);
@@ -165,5 +178,6 @@ namespace RenameRecursivelly
         private Label lblExtension;
         private TextBox tbOriginalName;
         private Label lblCounter;
+        private TextBox tbMessage;
     }
 }

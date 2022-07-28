@@ -39,20 +39,44 @@ namespace RenameRecursivelly
 
             this.ActiveControl = this.btnRename;
             this.CenterToScreen();
+            hideMessage();
             DialogResult res = this.ShowDialog();
             this.item = null;
             return res;
         }
 
+        private void showMessage(string message) 
+        {
+            this.tbMessage.Text = message;
+            this.tbMessage.Visible = true;
+        }
+
+        private void hideMessage()
+        {
+            this.tbMessage.Text = "";
+            this.tbMessage.Visible = false;
+        }
+
+
         private void btnRename_Click(object sender, EventArgs e)
         {
             string newName = this.tbNewName.Text.Trim();
+            string path = Path.Combine(this.item.path, newName);
 
             if (newName.Length == 0)
             {
-                MessageBox.Show("Nelze!");
+                showMessage("Nelze použít prázdný název!");
                 return;
             }
+
+            if ((this.item.IsDir && Directory.Exists(path)) ||
+                (!this.item.IsDir && File.Exists(path))) 
+            {
+                string type = (this.item.IsDir) ? "Adresář" : "Soubor";
+                showMessage(String.Format("{0} s názvem {1} již existuje!", type, path));
+                return;
+            }
+
 
             string normalizedName = newName.NormalizeString();
             if (newName != normalizedName)
@@ -112,7 +136,11 @@ namespace RenameRecursivelly
 
         private void RenameForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            MessageBox.Show("close");
+        }
+
+        private void tbMessage_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
