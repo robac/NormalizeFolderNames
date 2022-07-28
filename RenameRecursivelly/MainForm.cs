@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.ComponentModel;
 using System.Threading;
+using RenameRecursivelly.Utils;
 
 namespace RenameRecursivelly
 {
@@ -58,7 +59,7 @@ namespace RenameRecursivelly
 
         private void bwScan_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            BackgroundWorker worker = sender as BackgroundWorker;
+            BackgroundWorker? worker = sender as BackgroundWorker;
 
             for (int i = 0; i < 10; i++)
             {
@@ -75,7 +76,7 @@ namespace RenameRecursivelly
 
         private void bwScan_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            label1.Text = (string)e.Result;
+            label1.Text = e.Result as string;
         }
 
         public MainForm()
@@ -121,6 +122,7 @@ namespace RenameRecursivelly
             using (var writer = new StreamWriter(File.Open(Utils.Utils.getLogFilename(), FileMode.Append)))
             using (var csv = new CsvWriter(writer, csvConfig))
             {
+                ItemInfoCsvWrapper itemInfoCsvWrapper = new ItemInfoCsvWrapper();
                 RenameForm frmDialogRename = new RenameForm();
                 int currentItem = 0;
                 while (list.Count > 0)
@@ -139,7 +141,8 @@ namespace RenameRecursivelly
                         logMessage(String.Format("{2} \"{0}\" --> \"{1}\"", item.name, item.normalizedName, (item.isDir ? "Adresář" : "Soubor")));
 
 
-                        csv.WriteRecord(item);
+                        itemInfoCsvWrapper.setItem(item);
+                        csv.WriteRecord(itemInfoCsvWrapper);
                         csv.NextRecord();
                         try
                         {
@@ -214,7 +217,10 @@ namespace RenameRecursivelly
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            bwScan.RunWorkerAsync();
+            logMessage("Scan začíná...", true);
+            if (!bwScan.IsBusy) bwScan.RunWorkerAsync();
+            logMessage("Scan skončil...", true);
+
         }
     }
 }

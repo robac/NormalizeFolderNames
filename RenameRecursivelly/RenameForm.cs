@@ -7,7 +7,7 @@ namespace RenameRecursivelly
 {
     public partial class RenameForm : Form
     {
-        private ItemInfo item;
+        private ItemInfo? item;
 
         public RenameForm()
         {
@@ -60,7 +60,7 @@ namespace RenameRecursivelly
         private void btnRename_Click(object sender, EventArgs e)
         {
             string newName = this.tbNewName.Text.Trim();
-            string path = Path.Combine(this.item.path, newName);
+            string path = Path.Combine(item.path, newName);
 
             if (newName.Length == 0)
             {
@@ -68,10 +68,10 @@ namespace RenameRecursivelly
                 return;
             }
 
-            if ((this.item.IsDir && Directory.Exists(path)) ||
-                (!this.item.IsDir && File.Exists(path))) 
+            if ((this.item.isDir && Directory.Exists(path)) ||
+                (!this.item.isDir && File.Exists(path))) 
             {
-                string type = (this.item.IsDir) ? "Adresář" : "Soubor";
+                string type = (this.item.isDir) ? "Adresář" : "Soubor";
                 showMessage(String.Format("{0} s názvem {1} již existuje!", type, path));
                 return;
             }
