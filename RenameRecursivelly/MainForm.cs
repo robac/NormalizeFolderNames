@@ -63,13 +63,13 @@ namespace RenameRecursivelly
             string dir = folderBrowserDialog1.SelectedPath;
             if (!Directory.Exists(dir))
             {
-                MessageBox.Show("Adresář neexistuje!");
+                logMessage("Adresář neexistuje!", true);
                 return;
             }
 
             if (!(cbRenameFiles.Checked || cbRenameFolders.Checked))
             {
-                MessageBox.Show("Nejsou vybrané ani soubory ani adresáře!");
+                logMessage("Nejsou vybrané ani soubory ani adresáře!", true);
                 return;
             }
 
@@ -77,7 +77,7 @@ namespace RenameRecursivelly
             Utils.Utils.DirSearch(dir, list, cbRenameFiles.Checked, cbRenameFolders.Checked, Int32.Parse(cmbMaxItems.Text));
             if (list.Count == 0)
             {
-                MessageBox.Show("Nic k přejmenování!");
+                logMessage("Nic k přejmenování!", true);
                 return;
             }
 
@@ -105,7 +105,9 @@ namespace RenameRecursivelly
                     }
                     if (result == DialogResult.Yes)
                     {
-                        tbLog.Text += ((tbLog.Text.Length > 0) ? Environment.NewLine : "") + String.Format("{3} \"{1}\" --> \"{2}\" ({0})", item.path, item.name, item.normalizedName, (item.isDir ? "Adresář" : "Soubor"));
+                        logMessage(String.Format("({0})", item.path), true);
+                        logMessage(String.Format("{2} \"{0}\" --> \"{1}\"", item.name, item.normalizedName, (item.isDir ? "Adresář" : "Soubor")));
+
 
                         csv.WriteRecord(item);
                         csv.NextRecord();
@@ -121,7 +123,7 @@ namespace RenameRecursivelly
                             }
                         } catch (Exception exc)
                         {
-                            MessageBox.Show(String.Format("Došlo k chybě: {0}{1}{2}", exc.Message, Environment.NewLine, exc.StackTrace));
+                            logMessage(String.Format("Došlo k chybě: {0}{1}{2}", exc.Message, Environment.NewLine, exc.StackTrace));
                         }
                     }
                 }
@@ -163,6 +165,21 @@ namespace RenameRecursivelly
                 folderBrowserDialog1.SelectedPath = folderPath;
                 this.ActiveControl = btnRename;
             }
+        }
+
+        private void logMessage(string message, bool separator = false)
+        {
+            if (separator) logSeparator();
+            this.tbLog.AppendText(Environment.NewLine + message);
+            this.tbLog.SelectionStart = this.tbLog.Text.Length;
+            this.tbLog.ScrollToCaret();
+        }
+
+        private void logSeparator()
+        {
+            this.tbLog.AppendText(Environment.NewLine + "---");
+            this.tbLog.SelectionStart = this.tbLog.Text.Length;
+            this.tbLog.ScrollToCaret();
         }
     }
 }
