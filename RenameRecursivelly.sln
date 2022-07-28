@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RenameRecursivelly", "RenameRecursivelly\RenameRecursivelly.csproj", "{D90A34D8-7D1B-4786-9195-C24EC5537EFF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateBordel", "GenerateBordel\GenerateBordel.csproj", "{0D0223EB-4DEA-4378-810A-62080B921BA7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenerateRandomFolders", "GenerateRandomFolders\GenerateRandomFolders.csproj", "{0D0223EB-4DEA-4378-810A-62080B921BA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
