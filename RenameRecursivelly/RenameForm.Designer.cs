@@ -1,4 +1,6 @@
-﻿namespace RenameRecursivelly
+﻿using System.Windows.Forms;
+
+namespace RenameRecursivelly
 {
     partial class RenameForm
     {
@@ -35,6 +37,7 @@
             this.btnFinish = new System.Windows.Forms.Button();
             this.lblExtension = new System.Windows.Forms.Label();
             this.tbOriginalName = new System.Windows.Forms.TextBox();
+            this.lblCounter = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblFolder
@@ -115,11 +118,24 @@
             this.tbOriginalName.Size = new System.Drawing.Size(799, 34);
             this.tbOriginalName.TabIndex = 8;
             // 
+            // lblCounter
+            // 
+            this.lblCounter.AutoSize = true;
+            this.lblCounter.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblCounter.ForeColor = System.Drawing.Color.Red;
+            this.lblCounter.Location = new System.Drawing.Point(839, 14);
+            this.lblCounter.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCounter.Name = "lblCounter";
+            this.lblCounter.Size = new System.Drawing.Size(65, 28);
+            this.lblCounter.TabIndex = 9;
+            this.lblCounter.Text = "label4";
+            // 
             // RenameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(915, 176);
+            this.Controls.Add(this.lblCounter);
             this.Controls.Add(this.tbOriginalName);
             this.Controls.Add(this.lblExtension);
             this.Controls.Add(this.btnFinish);
@@ -127,9 +143,13 @@
             this.Controls.Add(this.btnRename);
             this.Controls.Add(this.tbNewName);
             this.Controls.Add(this.lblFolder);
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "RenameForm";
             this.Text = "Přejmenovat soubor";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RenameForm_FormClosing);
+            this.Load += new System.EventHandler(this.RenameForm_Load);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RenameForm_KeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -144,5 +164,6 @@
         private Button btnFinish;
         private Label lblExtension;
         private TextBox tbOriginalName;
+        private Label lblCounter;
     }
 }

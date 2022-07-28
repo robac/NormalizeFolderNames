@@ -1,4 +1,6 @@
-﻿namespace RenameRecursivelly.Utils
+﻿using System;
+
+namespace RenameRecursivelly.Utils
 {
     public class ItemInfo
     {

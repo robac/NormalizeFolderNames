@@ -2,6 +2,11 @@
 using CsvHelper.Configuration;
 using System.Globalization;
 using System.Text;
+using System;
+using System.IO;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Collections.Generic;
 
 namespace RenameRecursivelly
 {
@@ -28,30 +33,31 @@ namespace RenameRecursivelly
             }
 
             Queue<Utils.ItemInfo> list = new Queue<Utils.ItemInfo>();
-                Utils.Utils.DirSearch(dir, list, cbRenameFiles.Checked, cbRenameFolders.Checked, 100);
-
-                if (list.Count == 0)
-                {
-                    MessageBox.Show("Nic k přejmenování!");
-                    return;
-                }
+            Utils.Utils.DirSearch(dir, list, cbRenameFiles.Checked, cbRenameFolders.Checked, Int32.Parse(cmbMaxItems.Text));
+            if (list.Count == 0)
+            {
+                MessageBox.Show("Nic k přejmenování!");
+                return;
+            }
 
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HasHeaderRecord = false,
             };
 
+            int itemsTotal = list.Count;
+
             using (var writer = new StreamWriter(File.Open(Utils.Utils.getLogFilename(), FileMode.Append)))
             using (var csv = new CsvWriter(writer, csvConfig))
             {
-                csv.WriteHeader<Utils.ItemInfo>();
-                csv.NextRecord();
                 RenameForm frmDialogRename = new RenameForm();
+                int currentItem = 0;
                 while (list.Count > 0)
                 {
+                    currentItem++;
                     Utils.ItemInfo item = list.Dequeue();
 
-                    DialogResult result = frmDialogRename.OpenDialog(item);
+                    DialogResult result = frmDialogRename.OpenDialog(item, itemsTotal, currentItem);
                     if (result == DialogResult.Abort)
                     {
                         return;
@@ -92,7 +98,7 @@ namespace RenameRecursivelly
             this.ActiveControl = this.btnRename;
         }
 
-         private void button3_Click(object sender, EventArgs e)
+         private void button3_Click(object sender, System.EventArgs e)
         {
             this.Close();
         }

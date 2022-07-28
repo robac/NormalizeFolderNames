@@ -1,4 +1,6 @@
-﻿namespace RenameRecursivelly
+﻿using System.Windows.Forms;
+
+namespace RenameRecursivelly
 {
     partial class MainForm
     {

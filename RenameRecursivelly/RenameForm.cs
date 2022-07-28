@@ -1,17 +1,21 @@
 ﻿using RenameRecursivelly.Utils;
+using System;
+using System.IO;
+using System.Windows.Forms;
 
 namespace RenameRecursivelly
 {
     public partial class RenameForm : Form
     {
         private ItemInfo item;
+        private bool AltPressed;
 
         public RenameForm()
         {
             InitializeComponent();
         }
 
-        public DialogResult OpenDialog(ItemInfo item)
+        public DialogResult OpenDialog(ItemInfo item, int itemsTotal, int currentItem)
         {
             this.item = item;
 
@@ -30,6 +34,8 @@ namespace RenameRecursivelly
                 lblExtension.Text = Path.GetExtension(item.name);
                 this.tbNewName.Text = Path.GetFileNameWithoutExtension(item.normalizedName);
             }
+
+            this.lblCounter.Text = String.Format("{0}/{1}", currentItem, itemsTotal);
 
             this.ActiveControl = this.btnRename;
             this.CenterToScreen();
@@ -70,6 +76,43 @@ namespace RenameRecursivelly
         {
             this.DialogResult = DialogResult.Abort;
             this.Close();
+        }
+
+        private void RenameForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tbNewName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            /*if (e.KeyChar == (char)Keys.Return)
+            { 
+                this.btnRename_Click(sender, e);
+            }*/
+        }
+
+        private void RenameForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar == (char)Keys.Return) && (this.ActiveControl != btnSkip) && (this.ActiveControl != btnFinish))
+            {
+                e.Handled = true;
+                this.btnRename_Click(sender, e);
+                return;
+            }
+
+            if (e.KeyChar == (char)Keys.Escape)
+            {
+                e.Handled = true;
+                this.btnSkip_Click(sender, e);
+                return;
+            }
+
+            e.Handled = false;
+        }
+
+        private void RenameForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MessageBox.Show("close");
         }
     }
 }
