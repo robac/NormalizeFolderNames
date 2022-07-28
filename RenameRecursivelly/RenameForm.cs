@@ -18,8 +18,8 @@ namespace RenameRecursivelly
         {
             this.item = item;
 
-            this.lblFolder.Text = Path.GetDirectoryName(item.path);
-            this.tbOriginalName.Text = Path.GetFileName(item.name);
+            this.lblFolder.Text = item.path;
+            this.tbOriginalName.Text = item.name;
 
             this.Text = item.isDir ? "Přejmenovat adresář" : "Přejmenovat soubor";
             
