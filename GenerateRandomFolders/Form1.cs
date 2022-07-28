@@ -64,7 +64,7 @@ namespace GenerateBordel
                         sb.Append(dirNames[rnd.Next(dirNames.Length)]);
                         sb.Append((rnd.Next(3) == 0) ? " " : "");
                     }
-                    string newName = Path.Combine(item.path, sb.ToString());
+                    string newName = Path.Combine(item.path, sb.ToString()).Trim();
                     queue.Enqueue(new DirInfo(item.depth+1, newName));
                     Directory.CreateDirectory(newName);
                 }
