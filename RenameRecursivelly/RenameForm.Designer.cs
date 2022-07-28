@@ -140,7 +140,6 @@ namespace RenameRecursivelly
             this.tbMessage.Size = new System.Drawing.Size(799, 23);
             this.tbMessage.TabIndex = 10;
             this.tbMessage.Visible = false;
-            this.tbMessage.TextChanged += new System.EventHandler(this.tbMessage_TextChanged);
             // 
             // RenameForm
             // 
@@ -160,8 +159,6 @@ namespace RenameRecursivelly
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "RenameForm";
             this.Text = "Přejmenovat soubor";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RenameForm_FormClosing);
-            this.Load += new System.EventHandler(this.RenameForm_Load);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RenameForm_KeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();

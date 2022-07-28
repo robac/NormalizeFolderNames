@@ -7,11 +7,52 @@ using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Configuration;
 
 namespace RenameRecursivelly
 {
     public partial class MainForm : Form
     {
+
+        static string ReadSetting(string key, string defaultValue)
+        {
+            string result = "";
+            try
+            {
+                var appSettings = ConfigurationManager.AppSettings;
+                result = appSettings[key] ?? defaultValue;
+                Console.WriteLine(result);
+            }
+            catch (ConfigurationErrorsException)
+            {
+                Console.WriteLine("Error reading app settings");
+            }
+            return result;
+        }
+
+        static void AddUpdateAppSettings(string key, string value)
+        {
+            try
+            {
+                var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                var settings = configFile.AppSettings.Settings;
+                if (settings[key] == null)
+                {
+                    settings.Add(key, value);
+                }
+                else
+                {
+                    settings[key].Value = value;
+                }
+                configFile.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
+            }
+            catch (ConfigurationErrorsException)
+            {
+                Console.WriteLine("Error writing app settings");
+            }
+        }
+
         public MainForm()
         {
             InitializeComponent();
@@ -93,8 +134,16 @@ namespace RenameRecursivelly
         {
             folderBrowserDialog1.ShowDialog();
             string text = folderBrowserDialog1.SelectedPath;
-            lblFolder.Text = (text.Length > 0) ? text : "-- nevybráno";
-            lblFolder.ForeColor = (text.Length > 0) ? Color.Black : Color.Red;
+            if (text.Length == 0)
+            {
+                lblFolder.Text = "-- nevybráno";
+                lblFolder.ForeColor = Color.Red;
+                return;
+            }
+
+            lblFolder.Text = text;
+            lblFolder.ForeColor = Color.Black;
+            AddUpdateAppSettings("WorkFolder", text);
             this.ActiveControl = this.btnRename;
         }
 
@@ -106,6 +155,14 @@ namespace RenameRecursivelly
         private void MainForm_Load(object sender, EventArgs e)
         {
             cmbMaxItems.SelectedIndex = 0;
+            string folderPath = ReadSetting("WorkFolder", "");
+            if (folderPath != "")
+            {
+                lblFolder.Text = folderPath;
+                lblFolder.ForeColor = Color.Black;
+                folderBrowserDialog1.SelectedPath = folderPath;
+                this.ActiveControl = btnRename;
+            }
         }
     }
 }

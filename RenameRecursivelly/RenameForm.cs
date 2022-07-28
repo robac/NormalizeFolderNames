@@ -8,7 +8,6 @@ namespace RenameRecursivelly
     public partial class RenameForm : Form
     {
         private ItemInfo item;
-        private bool AltPressed;
 
         public RenameForm()
         {
@@ -102,19 +101,6 @@ namespace RenameRecursivelly
             this.Close();
         }
 
-        private void RenameForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void tbNewName_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            /*if (e.KeyChar == (char)Keys.Return)
-            { 
-                this.btnRename_Click(sender, e);
-            }*/
-        }
-
         private void RenameForm_KeyPress(object sender, KeyPressEventArgs e)
         {
             if ((e.KeyChar == (char)Keys.Return) && (this.ActiveControl != btnSkip) && (this.ActiveControl != btnFinish))
@@ -132,15 +118,6 @@ namespace RenameRecursivelly
             }
 
             e.Handled = false;
-        }
-
-        private void RenameForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-        }
-
-        private void tbMessage_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
