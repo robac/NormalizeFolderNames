@@ -77,7 +77,7 @@ namespace RenameRecursivelly.Utils
                     string normalizedFilename = filename.NormalizeString();
                     if (filename != normalizedFilename)
                     {
-                        ItemInfo item = new ItemInfo(parentDir, filename + Path.GetExtension(f), normalizedFilename, false);
+                        ItemInfo item = new ItemInfo(parentDir, filename + Path.GetExtension(f), normalizedFilename + Path.GetExtension(f), false);
                         output.Enqueue(item);
                     }
                 }
