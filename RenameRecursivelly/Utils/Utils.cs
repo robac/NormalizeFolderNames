@@ -55,7 +55,7 @@ namespace RenameRecursivelly.Utils
         public static string getLogFilename()
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string filename = String.Format("FolderRenameLog_{0}.txt", ((DateTimeOffset)DateTime.Now).ToUnixTimeMilliseconds());
+            string filename = String.Format("FolderRenameLog.txt", ((DateTimeOffset)DateTime.Now).ToUnixTimeMilliseconds());
 
             return Path.Combine(path, filename);
         }

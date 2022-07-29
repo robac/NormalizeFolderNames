@@ -19,7 +19,7 @@ namespace RenameRecursivelly
             Log.Logger = new LoggerConfiguration()
             .MinimumLevel.Information()
             .WriteTo.File(Utils.Utils.getLogFilename(),
-                rollingInterval: RollingInterval.Infinite,
+                rollingInterval: RollingInterval.Day,
                 rollOnFileSizeLimit: true)
             .CreateLogger();
             Log.Information("App started.");
