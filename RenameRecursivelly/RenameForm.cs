@@ -9,6 +9,8 @@ namespace RenameRecursivelly
     public partial class RenameForm : Form
     {
         private ItemInfo? item;
+        private string fileName;
+        private string fileExt;
 
         public RenameForm()
         {
@@ -23,17 +25,14 @@ namespace RenameRecursivelly
             this.tbOriginalName.Text = item.name;
 
             this.Text = item.isDir ? "Přejmenovat adresář" : "Přejmenovat soubor";
+
+            fileName = (item.isDir) ? item.normalizedName : Path.GetFileNameWithoutExtension(item.normalizedName);
+            fileExt = (item.isDir) ? "" : Path.GetExtension(item.normalizedName);
             
             this.tbNewName.Select(0, 0);
-            if (item.isDir)
-            {
-                lblExtension.Text = "";
-                this.tbNewName.Text = Path.GetFileName(item.normalizedName);
-            } else
-            {
-                lblExtension.Text = Path.GetExtension(item.name);
-                this.tbNewName.Text = Path.GetFileNameWithoutExtension(item.normalizedName);
-            }
+            lblExtension.Text = fileExt;
+            tbNewName.Text = fileName;
+            
 
             this.lblCounter.Text = String.Format("{0}/{1}", currentItem, itemsTotal);
 
@@ -67,10 +66,10 @@ namespace RenameRecursivelly
             {
                 showMessage("Nelze použít prázdný název!");
                 return;
-            }
+            } 
 
             if ((this.item.isDir && Directory.Exists(path)) ||
-                ((!this.item.isDir) && File.Exists(path))) 
+                ((!this.item.isDir) && File.Exists(path + lblExtension.Text.Trim()))) 
             {
                 string type = (this.item.isDir) ? "Adresář" : "Soubor";
                 showMessage(String.Format("{0} s názvem {1} již existuje!", type, path));
