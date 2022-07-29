@@ -27,6 +27,11 @@ namespace RenameRecursivelly
             try
             {
                 Application.Run(new MainForm());
+            } 
+            catch (Exception ex)
+            {
+                Log.Fatal(ex.Message);
+                Log.Fatal(ex.StackTrace);
             }
             finally {
                 Log.CloseAndFlush();
