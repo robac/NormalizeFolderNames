@@ -41,6 +41,19 @@ namespace RenameRecursivelly
             this.cmbMaxItems = new System.Windows.Forms.ComboBox();
             this.btnScan = new System.Windows.Forms.Button();
             this.pbScan = new System.Windows.Forms.ProgressBar();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.pbLoad = new System.Windows.Forms.ProgressBar();
+            this.btnLoad = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblFolderCount = new System.Windows.Forms.Label();
+            this.lblFileCount = new System.Windows.Forms.Label();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblFolder
@@ -48,7 +61,7 @@ namespace RenameRecursivelly
             this.lblFolder.AutoSize = true;
             this.lblFolder.Font = new System.Drawing.Font("Segoe UI", 9F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.lblFolder.ForeColor = System.Drawing.Color.Red;
-            this.lblFolder.Location = new System.Drawing.Point(8, 5);
+            this.lblFolder.Location = new System.Drawing.Point(130, 16);
             this.lblFolder.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFolder.Name = "lblFolder";
             this.lblFolder.Size = new System.Drawing.Size(78, 15);
@@ -57,7 +70,7 @@ namespace RenameRecursivelly
             // 
             // btnChooseFolder
             // 
-            this.btnChooseFolder.Location = new System.Drawing.Point(8, 30);
+            this.btnChooseFolder.Location = new System.Drawing.Point(10, 11);
             this.btnChooseFolder.Margin = new System.Windows.Forms.Padding(2);
             this.btnChooseFolder.Name = "btnChooseFolder";
             this.btnChooseFolder.Size = new System.Drawing.Size(109, 25);
@@ -68,30 +81,33 @@ namespace RenameRecursivelly
             // 
             // btnRename
             // 
+            this.btnRename.Enabled = false;
             this.btnRename.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnRename.Location = new System.Drawing.Point(8, 243);
+            this.btnRename.ForeColor = System.Drawing.Color.Red;
+            this.btnRename.Location = new System.Drawing.Point(10, 91);
             this.btnRename.Margin = new System.Windows.Forms.Padding(2);
             this.btnRename.Name = "btnRename";
             this.btnRename.Size = new System.Drawing.Size(109, 25);
             this.btnRename.TabIndex = 2;
             this.btnRename.Text = "Přejmenovat";
             this.btnRename.UseVisualStyleBackColor = true;
-            this.btnRename.Click += new System.EventHandler(this.button2_Click);
+            this.btnRename.Click += new System.EventHandler(this.btnRename_Click);
             // 
             // tbLog
             // 
-            this.tbLog.Location = new System.Drawing.Point(147, 30);
+            this.tbLog.Location = new System.Drawing.Point(145, 68);
             this.tbLog.Margin = new System.Windows.Forms.Padding(2);
             this.tbLog.Multiline = true;
             this.tbLog.Name = "tbLog";
             this.tbLog.ReadOnly = true;
             this.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbLog.Size = new System.Drawing.Size(695, 291);
+            this.tbLog.Size = new System.Drawing.Size(693, 454);
             this.tbLog.TabIndex = 3;
             // 
             // btnFinish
             // 
-            this.btnFinish.Location = new System.Drawing.Point(8, 296);
+            this.btnFinish.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnFinish.Location = new System.Drawing.Point(20, 497);
             this.btnFinish.Margin = new System.Windows.Forms.Padding(2);
             this.btnFinish.Name = "btnFinish";
             this.btnFinish.Size = new System.Drawing.Size(109, 25);
@@ -105,7 +121,7 @@ namespace RenameRecursivelly
             this.cbRenameFiles.AutoSize = true;
             this.cbRenameFiles.Checked = true;
             this.cbRenameFiles.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbRenameFiles.Location = new System.Drawing.Point(8, 67);
+            this.cbRenameFiles.Location = new System.Drawing.Point(10, 12);
             this.cbRenameFiles.Margin = new System.Windows.Forms.Padding(2);
             this.cbRenameFiles.Name = "cbRenameFiles";
             this.cbRenameFiles.Size = new System.Drawing.Size(69, 19);
@@ -118,7 +134,7 @@ namespace RenameRecursivelly
             this.cbRenameFolders.AutoSize = true;
             this.cbRenameFolders.Checked = true;
             this.cbRenameFolders.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbRenameFolders.Location = new System.Drawing.Point(8, 94);
+            this.cbRenameFolders.Location = new System.Drawing.Point(10, 35);
             this.cbRenameFolders.Margin = new System.Windows.Forms.Padding(2);
             this.cbRenameFolders.Name = "cbRenameFolders";
             this.cbRenameFolders.Size = new System.Drawing.Size(70, 19);
@@ -136,15 +152,15 @@ namespace RenameRecursivelly
             "200",
             "500",
             "1000"});
-            this.cmbMaxItems.Location = new System.Drawing.Point(8, 206);
+            this.cmbMaxItems.Location = new System.Drawing.Point(10, 59);
             this.cmbMaxItems.Name = "cmbMaxItems";
-            this.cmbMaxItems.Size = new System.Drawing.Size(109, 23);
+            this.cmbMaxItems.Size = new System.Drawing.Size(110, 23);
             this.cmbMaxItems.TabIndex = 7;
             this.cmbMaxItems.ValueMember = "100";
             // 
             // btnScan
             // 
-            this.btnScan.Location = new System.Drawing.Point(7, 143);
+            this.btnScan.Location = new System.Drawing.Point(10, 14);
             this.btnScan.Name = "btnScan";
             this.btnScan.Size = new System.Drawing.Size(110, 23);
             this.btnScan.TabIndex = 8;
@@ -154,31 +170,125 @@ namespace RenameRecursivelly
             // 
             // pbScan
             // 
-            this.pbScan.Location = new System.Drawing.Point(8, 172);
+            this.pbScan.Location = new System.Drawing.Point(10, 43);
             this.pbScan.Name = "pbScan";
-            this.pbScan.Size = new System.Drawing.Size(109, 23);
+            this.pbScan.Size = new System.Drawing.Size(110, 23);
             this.pbScan.TabIndex = 9;
             this.pbScan.Visible = false;
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.btnChooseFolder);
+            this.panel1.Controls.Add(this.lblFolder);
+            this.panel1.Location = new System.Drawing.Point(8, 12);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(829, 50);
+            this.panel1.TabIndex = 10;
+            // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.btnScan);
+            this.panel2.Controls.Add(this.pbScan);
+            this.panel2.Location = new System.Drawing.Point(8, 68);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(132, 80);
+            this.panel2.TabIndex = 11;
+            // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.pbLoad);
+            this.panel3.Controls.Add(this.btnLoad);
+            this.panel3.Controls.Add(this.cbRenameFiles);
+            this.panel3.Controls.Add(this.cbRenameFolders);
+            this.panel3.Controls.Add(this.cmbMaxItems);
+            this.panel3.Location = new System.Drawing.Point(8, 154);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(132, 154);
+            this.panel3.TabIndex = 12;
+            // 
+            // pbLoad
+            // 
+            this.pbLoad.Location = new System.Drawing.Point(10, 117);
+            this.pbLoad.Name = "pbLoad";
+            this.pbLoad.Size = new System.Drawing.Size(110, 23);
+            this.pbLoad.TabIndex = 14;
+            this.pbLoad.Visible = false;
+            // 
+            // btnLoad
+            // 
+            this.btnLoad.Location = new System.Drawing.Point(10, 88);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(110, 23);
+            this.btnLoad.TabIndex = 13;
+            this.btnLoad.Text = "Načíst";
+            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
+            // 
+            // panel4
+            // 
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel4.Controls.Add(this.lblFileCount);
+            this.panel4.Controls.Add(this.lblFolderCount);
+            this.panel4.Controls.Add(this.label2);
+            this.panel4.Controls.Add(this.btnRename);
+            this.panel4.Location = new System.Drawing.Point(8, 314);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(132, 128);
+            this.panel4.TabIndex = 13;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(10, 13);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 15);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "K přejmenování:";
+            // 
+            // lblFolderCount
+            // 
+            this.lblFolderCount.AutoSize = true;
+            this.lblFolderCount.Location = new System.Drawing.Point(15, 37);
+            this.lblFolderCount.Name = "lblFolderCount";
+            this.lblFolderCount.Size = new System.Drawing.Size(61, 15);
+            this.lblFolderCount.TabIndex = 4;
+            this.lblFolderCount.Text = "0 adresářů";
+            // 
+            // lblFileCount
+            // 
+            this.lblFileCount.AutoSize = true;
+            this.lblFileCount.Location = new System.Drawing.Point(15, 61);
+            this.lblFileCount.Name = "lblFileCount";
+            this.lblFileCount.Size = new System.Drawing.Size(60, 15);
+            this.lblFileCount.TabIndex = 5;
+            this.lblFileCount.Text = "0 souborů";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(849, 333);
-            this.Controls.Add(this.pbScan);
-            this.Controls.Add(this.btnScan);
-            this.Controls.Add(this.cmbMaxItems);
-            this.Controls.Add(this.cbRenameFolders);
-            this.Controls.Add(this.cbRenameFiles);
+            this.ClientSize = new System.Drawing.Size(849, 533);
+            this.Controls.Add(this.panel4);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnFinish);
             this.Controls.Add(this.tbLog);
-            this.Controls.Add(this.btnRename);
-            this.Controls.Add(this.btnChooseFolder);
-            this.Controls.Add(this.lblFolder);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.Text = "Přejmenovávač";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -198,5 +308,14 @@ namespace RenameRecursivelly
         private Button btnScan;
         private Label label1;
         private ProgressBar pbScan;
+        private Panel panel1;
+        private Panel panel2;
+        private Panel panel3;
+        private ProgressBar pbLoad;
+        private Button btnLoad;
+        private Panel panel4;
+        private Label lblFileCount;
+        private Label lblFolderCount;
+        private Label label2;
     }
 }

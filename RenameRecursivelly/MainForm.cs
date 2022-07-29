@@ -17,45 +17,8 @@ namespace RenameRecursivelly
     public partial class MainForm : Form
     {
         private BackgroundWorker bwScan = new BackgroundWorker();
-
-        static string ReadSetting(string key, string defaultValue)
-        {
-            string result = "";
-            try
-            {
-                var appSettings = ConfigurationManager.AppSettings;
-                result = appSettings[key] ?? defaultValue;
-                Console.WriteLine(result);
-            }
-            catch (ConfigurationErrorsException)
-            {
-                Console.WriteLine("Error reading app settings");
-            }
-            return result;
-        }
-
-        static void AddUpdateAppSettings(string key, string value)
-        {
-            try
-            {
-                var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                var settings = configFile.AppSettings.Settings;
-                if (settings[key] == null)
-                {
-                    settings.Add(key, value);
-                }
-                else
-                {
-                    settings[key].Value = value;
-                }
-                configFile.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
-            }
-            catch (ConfigurationErrorsException)
-            {
-                Console.WriteLine("Error writing app settings");
-            }
-        }
+        private BackgroundWorker bwLoad = new BackgroundWorker();
+        private Queue<ItemInfo>? itemsToRename;
 
         private void bwScan_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
@@ -90,45 +53,70 @@ namespace RenameRecursivelly
             btnScan.Enabled = true;
         }
 
+        private void bwLoad_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            BackgroundWorker? worker = sender as BackgroundWorker;
+            BackgroundLoadFolder bwLoadFolder = new BackgroundLoadFolder();
+
+            e.Result = bwLoadFolder.DoWork(worker, (BackgroundLoadFolderArgs)e.Argument);
+        }
+
+        private void bwLoad_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            pbLoad.Value = (pbLoad.Value == 100) ? 10 : (pbLoad.Value + 10);
+        }
+
+        private void refreshRenameStatus()
+        {
+            btnRename.Enabled = itemsToRename.Count > 0;
+
+            int totalFolders = 0;
+            int totalFiles = 0;
+            foreach (ItemInfo item in itemsToRename)
+            {
+                if (item.isDir)
+                    totalFolders++;
+                else
+                    totalFiles++;
+            }
+
+            lblFolderCount.Text = String.Format("{0} adresářů", totalFolders.ToString());
+            lblFileCount.Text = String.Format("{0} souborů", totalFiles.ToString());
+        }
+
+
+        private void bwLoad_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            this.itemsToRename = ((BackgroundLoadFolderRes)e.Result).itemsToRename;
+            logMessage(String.Format("Načteno {0} položek...", this.itemsToRename.Count));
+            pbLoad.Visible = false;
+            btnLoad.Enabled = true;
+            refreshRenameStatus();
+        }
+
         public MainForm()
         {
             InitializeComponent();
+
             bwScan.ProgressChanged += bwScan_ProgressChanged;
             bwScan.DoWork += bwScan_DoWork;
             bwScan.RunWorkerCompleted += bwScan_RunWorkerCompleted;
             bwScan.WorkerReportsProgress = true;
 
+            bwLoad.ProgressChanged += bwLoad_ProgressChanged;
+            bwLoad.DoWork += bwLoad_DoWork;
+            bwLoad.RunWorkerCompleted += bwLoad_RunWorkerCompleted;
+            bwLoad.WorkerReportsProgress = true;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnRename_Click(object sender, EventArgs e)
         {
-            string dir = folderBrowserDialog1.SelectedPath;
-            if (!Directory.Exists(dir))
-            {
-                logMessage("Adresář neexistuje!", true);
-                return;
-            }
-
-            if (!(cbRenameFiles.Checked || cbRenameFolders.Checked))
-            {
-                logMessage("Nejsou vybrané ani soubory ani adresáře!", true);
-                return;
-            }
-
-            Queue<Utils.ItemInfo> list = new Queue<Utils.ItemInfo>();
-            Utils.Utils.DirSearch(dir, list, cbRenameFiles.Checked, cbRenameFolders.Checked, Int32.Parse(cmbMaxItems.Text));
-            if (list.Count == 0)
-            {
-                logMessage("Nic k přejmenování!", true);
-                return;
-            }
-
             var csvConfig = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HasHeaderRecord = false,
             };
 
-            int itemsTotal = list.Count;
+            int itemsTotal = itemsToRename.Count;
 
             using (var writer = new StreamWriter(File.Open(Utils.Utils.getLogFilename(), FileMode.Append)))
             using (var csv = new CsvWriter(writer, csvConfig))
@@ -136,14 +124,15 @@ namespace RenameRecursivelly
                 ItemInfoCsvWrapper itemInfoCsvWrapper = new ItemInfoCsvWrapper();
                 RenameForm frmDialogRename = new RenameForm();
                 int currentItem = 0;
-                while (list.Count > 0)
+                while (itemsToRename.Count > 0)
                 {
                     currentItem++;
-                    Utils.ItemInfo item = list.Dequeue();
+                    Utils.ItemInfo item = itemsToRename.Dequeue();
 
                     DialogResult result = frmDialogRename.OpenDialog(item, itemsTotal, currentItem);
                     if (result == DialogResult.Abort)
                     {
+                        refreshRenameStatus();
                         return;
                     }
                     if (result == DialogResult.Yes)
@@ -172,8 +161,7 @@ namespace RenameRecursivelly
                     }
                 }
             }
-
-            
+            refreshRenameStatus();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -189,7 +177,7 @@ namespace RenameRecursivelly
 
             lblFolder.Text = text;
             lblFolder.ForeColor = Color.Black;
-            AddUpdateAppSettings("WorkFolder", text);
+            AppSettings.AddUpdateValue("WorkFolder", text);
             this.ActiveControl = this.btnRename;
         }
 
@@ -201,7 +189,7 @@ namespace RenameRecursivelly
         private void MainForm_Load(object sender, EventArgs e)
         {
             cmbMaxItems.SelectedIndex = 0;
-            string folderPath = ReadSetting("WorkFolder", "");
+            string folderPath = AppSettings.ReadValue("WorkFolder", "");
             if (folderPath != "")
             {
                 lblFolder.Text = folderPath;
@@ -237,6 +225,36 @@ namespace RenameRecursivelly
             pbScan.Value = 0;
             btnScan.Enabled = false;
             bwScan.RunWorkerAsync();
+        }
+
+        private void btnLoad_Click(object sender, EventArgs e)
+        {
+            if (bwLoad.IsBusy)
+            {
+                logMessage("Operace probíhá...");
+            }
+
+            if (!(cbRenameFiles.Checked || cbRenameFolders.Checked))
+            {
+                logMessage("Nejsou vybrané ani soubory ani adresáře!", true);
+                return;
+            }
+
+            logMessage("Načítání začíná...", true);
+            pbLoad.Visible = true;
+            pbLoad.Value = 0;
+            btnLoad.Enabled = false;
+            btnRename.Enabled = false;
+
+            BackgroundLoadFolderArgs args = new BackgroundLoadFolderArgs(
+                folderBrowserDialog1.SelectedPath,
+                1000,
+                cbRenameFiles.Checked,
+                cbRenameFolders.Checked,
+                Int32.Parse(cmbMaxItems.Text)
+                );
+
+            bwLoad.RunWorkerAsync(args);
         }
     }
 }
