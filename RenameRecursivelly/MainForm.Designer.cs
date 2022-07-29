@@ -50,10 +50,17 @@ namespace RenameRecursivelly
             this.lblFileCount = new System.Windows.Forms.Label();
             this.lblFolderCount = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.tabLog = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tbOperations = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.tabLog.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblFolder
@@ -95,13 +102,13 @@ namespace RenameRecursivelly
             // 
             // tbLog
             // 
-            this.tbLog.Location = new System.Drawing.Point(145, 68);
+            this.tbLog.Location = new System.Drawing.Point(2, 0);
             this.tbLog.Margin = new System.Windows.Forms.Padding(2);
             this.tbLog.Multiline = true;
             this.tbLog.Name = "tbLog";
             this.tbLog.ReadOnly = true;
             this.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbLog.Size = new System.Drawing.Size(693, 454);
+            this.tbLog.Size = new System.Drawing.Size(679, 424);
             this.tbLog.TabIndex = 3;
             // 
             // btnFinish
@@ -166,7 +173,7 @@ namespace RenameRecursivelly
             this.btnScan.TabIndex = 8;
             this.btnScan.Text = "Skenovat";
             this.btnScan.UseVisualStyleBackColor = true;
-            this.btnScan.Click += new System.EventHandler(this.button1_Click_1);
+            this.btnScan.Click += new System.EventHandler(this.btnScan_Click);
             // 
             // pbScan
             // 
@@ -269,17 +276,60 @@ namespace RenameRecursivelly
             this.label2.TabIndex = 3;
             this.label2.Text = "K přejmenování:";
             // 
+            // tabLog
+            // 
+            this.tabLog.Controls.Add(this.tabPage1);
+            this.tabLog.Controls.Add(this.tabPage2);
+            this.tabLog.Location = new System.Drawing.Point(146, 68);
+            this.tabLog.Name = "tabLog";
+            this.tabLog.SelectedIndex = 0;
+            this.tabLog.Size = new System.Drawing.Size(691, 454);
+            this.tabLog.TabIndex = 14;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.tbLog);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(683, 426);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Přejmenování";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.tbOperations);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(683, 426);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Operace";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tbOperations
+            // 
+            this.tbOperations.Location = new System.Drawing.Point(2, 1);
+            this.tbOperations.Margin = new System.Windows.Forms.Padding(2);
+            this.tbOperations.Multiline = true;
+            this.tbOperations.Name = "tbOperations";
+            this.tbOperations.ReadOnly = true;
+            this.tbOperations.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbOperations.Size = new System.Drawing.Size(679, 424);
+            this.tbOperations.TabIndex = 4;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(849, 533);
+            this.Controls.Add(this.tabLog);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnFinish);
-            this.Controls.Add(this.tbLog);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.Text = "Přejmenovávač";
@@ -291,8 +341,12 @@ namespace RenameRecursivelly
             this.panel3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.tabLog.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -319,5 +373,9 @@ namespace RenameRecursivelly
         private Label lblFileCount;
         private Label lblFolderCount;
         private Label label2;
+        private TabControl tabLog;
+        private TabPage tabPage1;
+        private TabPage tabPage2;
+        private TextBox tbOperations;
     }
 }
