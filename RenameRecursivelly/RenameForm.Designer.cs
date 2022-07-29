@@ -39,6 +39,7 @@ namespace RenameRecursivelly
             this.tbOriginalName = new System.Windows.Forms.TextBox();
             this.lblCounter = new System.Windows.Forms.Label();
             this.tbMessage = new System.Windows.Forms.TextBox();
+            this.btnOpen = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblFolder
@@ -143,11 +144,23 @@ namespace RenameRecursivelly
             this.tbMessage.TabIndex = 10;
             this.tbMessage.Visible = false;
             // 
+            // btnOpen
+            // 
+            this.btnOpen.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnOpen.Location = new System.Drawing.Point(834, 47);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(37, 34);
+            this.btnOpen.TabIndex = 11;
+            this.btnOpen.Text = "...";
+            this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
+            // 
             // RenameForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(993, 213);
+            this.Controls.Add(this.btnOpen);
             this.Controls.Add(this.tbMessage);
             this.Controls.Add(this.lblCounter);
             this.Controls.Add(this.tbOriginalName);
@@ -178,5 +191,6 @@ namespace RenameRecursivelly
         private TextBox tbOriginalName;
         private Label lblCounter;
         private TextBox tbMessage;
+        private Button btnOpen;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using RenameRecursivelly.Utils;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
@@ -69,7 +70,7 @@ namespace RenameRecursivelly
             }
 
             if ((this.item.isDir && Directory.Exists(path)) ||
-                (!this.item.isDir && File.Exists(path))) 
+                ((!this.item.isDir) && File.Exists(path))) 
             {
                 string type = (this.item.isDir) ? "Adresář" : "Soubor";
                 showMessage(String.Format("{0} s názvem {1} již existuje!", type, path));
@@ -120,5 +121,20 @@ namespace RenameRecursivelly
             e.Handled = false;
         }
 
+        private void OpenFolder(string folderPath)
+        {
+            Process.Start("explorer.exe", folderPath);
+        }
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            if (!Directory.Exists(item.path))
+            {
+                showMessage(String.Format("Složka {0} neexistuje!", item.path));
+                return;
+            }
+
+            OpenFolder(item.path);
+        }
     }
 }

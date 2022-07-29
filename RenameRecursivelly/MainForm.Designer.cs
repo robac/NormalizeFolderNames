@@ -47,9 +47,9 @@ namespace RenameRecursivelly
             this.pbLoad = new System.Windows.Forms.ProgressBar();
             this.btnLoad = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblFolderCount = new System.Windows.Forms.Label();
             this.lblFileCount = new System.Windows.Forms.Label();
+            this.lblFolderCount = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -219,6 +219,8 @@ namespace RenameRecursivelly
             // 
             // btnLoad
             // 
+            this.btnLoad.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnLoad.ForeColor = System.Drawing.Color.DarkGreen;
             this.btnLoad.Location = new System.Drawing.Point(10, 88);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(110, 23);
@@ -239,15 +241,14 @@ namespace RenameRecursivelly
             this.panel4.Size = new System.Drawing.Size(132, 128);
             this.panel4.TabIndex = 13;
             // 
-            // label2
+            // lblFileCount
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(10, 13);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 15);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "K přejmenování:";
+            this.lblFileCount.AutoSize = true;
+            this.lblFileCount.Location = new System.Drawing.Point(15, 61);
+            this.lblFileCount.Name = "lblFileCount";
+            this.lblFileCount.Size = new System.Drawing.Size(60, 15);
+            this.lblFileCount.TabIndex = 5;
+            this.lblFileCount.Text = "0 souborů";
             // 
             // lblFolderCount
             // 
@@ -258,14 +259,15 @@ namespace RenameRecursivelly
             this.lblFolderCount.TabIndex = 4;
             this.lblFolderCount.Text = "0 adresářů";
             // 
-            // lblFileCount
+            // label2
             // 
-            this.lblFileCount.AutoSize = true;
-            this.lblFileCount.Location = new System.Drawing.Point(15, 61);
-            this.lblFileCount.Name = "lblFileCount";
-            this.lblFileCount.Size = new System.Drawing.Size(60, 15);
-            this.lblFileCount.TabIndex = 5;
-            this.lblFileCount.Text = "0 souborů";
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label2.Location = new System.Drawing.Point(10, 13);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 15);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "K přejmenování:";
             // 
             // MainForm
             // 
