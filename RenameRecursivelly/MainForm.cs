@@ -139,27 +139,31 @@ namespace RenameRecursivelly
                     if (result == DialogResult.Abort)
                     {
                         refreshRenameStatus();
+                        logMessage("Přejmenování ukončeno uživatelem.", LogType.Rename, true);
                         return;
                     }
+
+                    if (result == DialogResult.Cancel)
+                    {
+                        logMessage(String.Format("Položka {0} přeskočena.", Path.Combine(item.path, item.name)), LogType.Rename, true);
+                        continue;
+                    }
+
                     if (result == DialogResult.Yes)
                     {
                         logMessage(String.Format("({0})", item.path), LogType.Rename, true);
                         logMessage(String.Format("{2} \"{0}\" --> \"{1}\"", item.name, item.normalizedName, (item.isDir ? "Adresář" : "Soubor")), LogType.Rename);
 
-
-                        itemInfoCsvWrapper.setItem(item);
-                        csv.WriteRecord(itemInfoCsvWrapper);
-                        csv.NextRecord();
                         try
                         {
                             if (item.isDir)
-                            {
                                 System.IO.Directory.Move(Path.Combine(item.path, item.name), Path.Combine(item.path, item.normalizedName));
-                            }
                             else
-                            {
                                 System.IO.File.Move(Path.Combine(item.path, item.name), Path.Combine(item.path, item.normalizedName));
-                            }
+
+                            itemInfoCsvWrapper.setItem(item);
+                            csv.WriteRecord(itemInfoCsvWrapper);
+                            csv.NextRecord();
                         } catch (Exception exc)
                         {
                             logMessage(String.Format("Došlo k chybě: {0}{1}{2}", exc.Message, Environment.NewLine, exc.StackTrace), LogType.Rename);
@@ -172,7 +176,17 @@ namespace RenameRecursivelly
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string oldPath = folderBrowserDialog1.SelectedPath;
             folderBrowserDialog1.ShowDialog();
+
+            if (oldPath == folderBrowserDialog1.SelectedPath)
+            {
+                return;
+            }
+
+            itemsToRename = new Queue<ItemInfo>();
+            refreshRenameStatus();
+
             string text = folderBrowserDialog1.SelectedPath;
             if (text.Length == 0)
             {
