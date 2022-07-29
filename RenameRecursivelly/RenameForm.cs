@@ -21,24 +21,21 @@ namespace RenameRecursivelly
         {
             this.item = item;
 
-            this.lblFolder.Text = item.path;
-            this.tbOriginalName.Text = item.name;
-
-            this.Text = item.isDir ? "Přejmenovat adresář" : "Přejmenovat soubor";
-
             fileName = (item.isDir) ? item.normalizedName : Path.GetFileNameWithoutExtension(item.normalizedName);
             fileExt = (item.isDir) ? "" : Path.GetExtension(item.normalizedName);
-            
-            this.tbNewName.Select(0, 0);
+
+            Text = item.isDir ? "Přejmenovat adresář" : "Přejmenovat soubor";
+            lblFolder.Text = item.path;
+            tbOriginalName.Text = item.name;
             lblExtension.Text = fileExt;
             tbNewName.Text = fileName;
-            
+            lblCounter.Text = String.Format("{0}/{1}", currentItem, itemsTotal);
 
-            this.lblCounter.Text = String.Format("{0}/{1}", currentItem, itemsTotal);
-
+            tbNewName.Select(0, 0);
             this.ActiveControl = this.btnRename;
             this.CenterToScreen();
             hideMessage();
+            
             DialogResult res = this.ShowDialog();
             this.item = null;
             return res;
@@ -59,23 +56,15 @@ namespace RenameRecursivelly
 
         private void btnRename_Click(object sender, EventArgs e)
         {
-            string newName = this.tbNewName.Text.Trim();
-            string path = Path.Combine(item.path, newName);
+            string newName = tbNewName.Text.Trim();
+            string extension = lblExtension.Text;
+            string newPath = (item.isDir) ? Path.Combine(item.path, newName) : Path.Combine(item.path, newName + extension);
 
             if (newName.Length == 0)
             {
                 showMessage("Nelze použít prázdný název!");
                 return;
-            } 
-
-            if ((this.item.isDir && Directory.Exists(path)) ||
-                ((!this.item.isDir) && File.Exists(path + lblExtension.Text.Trim()))) 
-            {
-                string type = (this.item.isDir) ? "Adresář" : "Soubor";
-                showMessage(String.Format("{0} s názvem {1} již existuje!", type, path));
-                return;
             }
-
 
             string normalizedName = newName.NormalizeString();
             if (newName != normalizedName)
@@ -83,9 +72,18 @@ namespace RenameRecursivelly
                 MessageBox.Show("Nový název nesplňuje podmínky!");
                 return;
             }
+
+            if ((this.item.isDir && Directory.Exists(newPath)) ||
+                ((!this.item.isDir) && File.Exists(newPath)))
+            {
+                string type = (this.item.isDir) ? "Adresář" : "Soubor";
+                showMessage(String.Format("{0} s názvem {1} již existuje!", type, newPath));
+                return;
+            }
+            
             this.DialogResult = DialogResult.Yes;
             
-            this.item.normalizedName = tbNewName.Text.Trim()+lblExtension.Text;
+            this.item.normalizedName = newName+extension;
             this.Close();
         }
 
