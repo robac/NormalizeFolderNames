@@ -46,7 +46,7 @@ namespace RenameRecursivelly
             // 
             this.lblFolder.AutoSize = true;
             this.lblFolder.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.lblFolder.Location = new System.Drawing.Point(24, 14);
+            this.lblFolder.Location = new System.Drawing.Point(56, 12);
             this.lblFolder.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblFolder.Name = "lblFolder";
             this.lblFolder.Size = new System.Drawing.Size(39, 15);
@@ -147,9 +147,9 @@ namespace RenameRecursivelly
             // btnOpen
             // 
             this.btnOpen.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnOpen.Location = new System.Drawing.Point(834, 47);
+            this.btnOpen.Location = new System.Drawing.Point(24, 7);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(37, 34);
+            this.btnOpen.Size = new System.Drawing.Size(27, 25);
             this.btnOpen.TabIndex = 11;
             this.btnOpen.Text = "...";
             this.btnOpen.UseVisualStyleBackColor = true;
