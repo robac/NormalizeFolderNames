@@ -44,12 +44,21 @@ namespace RenameRecursivelly.Utils
             return RemoveWhitespace(RemoveDiacritics(text.Trim()));
         }
 
-        public static string getLogFilename()
+        public static string getCsvResultFilename()
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string filename = String.Format("FolderRenameLog.csv");
+            string filename = "FolderRenameRenames.csv";
 
             return Path.Combine(path, filename);
         }
+
+        public static string getLogFilename()
+        {
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string filename = String.Format("FolderRenameLog_{0}.txt", ((DateTimeOffset)DateTime.Now).ToUnixTimeMilliseconds());
+
+            return Path.Combine(path, filename);
+        }
+
     }
 }

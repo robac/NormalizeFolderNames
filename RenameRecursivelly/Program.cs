@@ -1,5 +1,6 @@
 using System;
 using System.Windows.Forms;
+using Serilog;
 
 namespace RenameRecursivelly
 {
@@ -14,7 +15,22 @@ namespace RenameRecursivelly
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+
+            Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Information()
+            .WriteTo.File(Utils.Utils.getLogFilename(),
+                rollingInterval: RollingInterval.Infinite,
+                rollOnFileSizeLimit: true)
+            .CreateLogger();
+            Log.Information("App started.");
+
+            try
+            {
+                Application.Run(new MainForm());
+            }
+            finally {
+                Log.CloseAndFlush();
+            }
         }
     }
 }

@@ -11,6 +11,8 @@ using System.Configuration;
 using System.ComponentModel;
 using System.Threading;
 using RenameRecursivelly.Utils;
+using Serilog;
+
 
 namespace RenameRecursivelly
 {
@@ -124,7 +126,7 @@ namespace RenameRecursivelly
 
             int itemsTotal = itemsToRename.Count;
 
-            using (var writer = new StreamWriter(File.Open(Utils.Utils.getLogFilename(), FileMode.Append)))
+            using (var writer = new StreamWriter(File.Open(Utils.Utils.getCsvResultFilename(), FileMode.Append)))
             using (var csv = new CsvWriter(writer, csvConfig))
             {
                 ItemInfoCsvWrapper itemInfoCsvWrapper = new ItemInfoCsvWrapper();
@@ -228,6 +230,8 @@ namespace RenameRecursivelly
             destination.SelectionStart = this.tbLog.Text.Length;
             destination.ScrollToCaret();
             tabLog.SelectedTab = (type == LogType.Rename) ? tabPage1 : tabPage2;
+
+            Log.Information("({type}): {message}", type, message);
         }
 
         private void logSeparator(TextBox destination)
