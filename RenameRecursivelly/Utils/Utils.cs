@@ -44,44 +44,6 @@ namespace RenameRecursivelly.Utils
             return RemoveWhitespace(RemoveDiacritics(text.Trim()));
         }
 
-        public static void DirSearch(string parentDir, Queue<ItemInfo> output, bool doFiles, bool doFolders, int maxItems)
-        {
-            if (doFiles)
-            {
-                foreach (string f in Directory.GetFiles(parentDir))
-                {
-                    if (maxItems <= output.Count) return;
-
-                    string filename = Path.GetFileNameWithoutExtension(f);
-                    string normalizedFilename = filename.NormalizeString();
-                    if (filename != normalizedFilename)
-                    {
-                        ItemInfo item = new ItemInfo(parentDir, filename + Path.GetExtension(f), normalizedFilename, false);
-                        output.Enqueue(item);
-                    }
-                }
-            }
-
-            foreach (string d in Directory.GetDirectories(parentDir))
-            {
-                if (maxItems <= output.Count) return;
-
-                DirSearch(d, output, doFiles, doFolders, maxItems);
-                if (maxItems <= output.Count) return;
-                if (doFolders) 
-                {
-                    string dirname = Path.GetFileName(d);
-                    string normalizedDirname = dirname.NormalizeString();
-                    if (dirname != normalizedDirname)
-                    {
-                        ItemInfo item = new ItemInfo(parentDir, dirname, normalizedDirname, true);
-                        output.Enqueue(item);
-                    }
-                }
-            }
-
-        }
-
         public static string getLogFilename()
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
