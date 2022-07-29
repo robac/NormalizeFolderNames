@@ -102,13 +102,14 @@ namespace RenameRecursivelly
             // 
             // tbLog
             // 
-            this.tbLog.Location = new System.Drawing.Point(2, 0);
+            this.tbLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbLog.Location = new System.Drawing.Point(3, 3);
             this.tbLog.Margin = new System.Windows.Forms.Padding(2);
             this.tbLog.Multiline = true;
             this.tbLog.Name = "tbLog";
             this.tbLog.ReadOnly = true;
             this.tbLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbLog.Size = new System.Drawing.Size(679, 424);
+            this.tbLog.Size = new System.Drawing.Size(677, 420);
             this.tbLog.TabIndex = 3;
             // 
             // btnFinish
@@ -310,13 +311,14 @@ namespace RenameRecursivelly
             // 
             // tbOperations
             // 
-            this.tbOperations.Location = new System.Drawing.Point(2, 1);
+            this.tbOperations.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbOperations.Location = new System.Drawing.Point(3, 3);
             this.tbOperations.Margin = new System.Windows.Forms.Padding(2);
             this.tbOperations.Multiline = true;
             this.tbOperations.Name = "tbOperations";
             this.tbOperations.ReadOnly = true;
             this.tbOperations.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbOperations.Size = new System.Drawing.Size(679, 424);
+            this.tbOperations.Size = new System.Drawing.Size(677, 420);
             this.tbOperations.TabIndex = 4;
             // 
             // MainForm
