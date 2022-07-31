@@ -32,16 +32,17 @@ namespace RenameRecursivelly.Utils
                 .Normalize(NormalizationForm.FormC);
         }
 
-        private static string RemoveWhitespace(string text)
+        private static string RemoveWhitespace(this string text)
         {
-            string pattern = @"[\s,'_']+";
+            string pattern = @"[\s, '\-\[\].()_+']+";
+
             string replacement = "_";
             return Regex.Replace(text, pattern, replacement);
         }
 
         public static string NormalizeString(this string text)
         {
-            return RemoveWhitespace(RemoveDiacritics(text.Trim()));
+            return RemoveDiacritics(text.Trim()).RemoveWhitespace();
         }
 
         public static string getCsvResultFilename()
