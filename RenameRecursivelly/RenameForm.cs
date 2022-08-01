@@ -29,7 +29,7 @@ namespace RenameRecursivelly
             tbOriginalName.Text = item.name;
             lblExtension.Text = fileExt;
             tbNewName.Text = fileName;
-            lblCounter.Text = String.Format("{0}/{1}", currentItem, itemsTotal);
+            lblCounter.Text = "{currentItem}/{itemsTotal}";
 
             tbNewName.Select(0, 0);
             this.ActiveControl = this.btnRename;
@@ -77,7 +77,7 @@ namespace RenameRecursivelly
                 ((!this.item.isDir) && File.Exists(newPath)))
             {
                 string type = (this.item.isDir) ? "Adresář" : "Soubor";
-                showMessage(String.Format("{0} s názvem {1} již existuje!", type, newPath));
+                showMessage("{type} s názvem {newPath} již existuje!");
                 return;
             }
             
@@ -127,7 +127,7 @@ namespace RenameRecursivelly
         {
             if (!Directory.Exists(item.path))
             {
-                showMessage(String.Format("Složka {0} neexistuje!", item.path));
+                showMessage("Složka {item.path} neexistuje!");
                 return;
             }
 

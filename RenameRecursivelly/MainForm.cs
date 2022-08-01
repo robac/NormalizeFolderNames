@@ -40,10 +40,10 @@ namespace RenameRecursivelly
         {
             BackgroundScanFolderRes progress = e.UserState as BackgroundScanFolderRes;
             logMessage("-- Scan průběžné info", LogType.Operation);
-            logMessage(String.Format(" Složek: {0}", progress.dirCount), LogType.Operation);
-            logMessage(String.Format(" Souborů: {0}", progress.fileCount), LogType.Operation);
-            logMessage(String.Format(" Složek špatně: {0}", progress.wrongDirCount), LogType.Operation);
-            logMessage(String.Format(" Souborů špatně: {0}", progress.wrongFileCount), LogType.Operation);
+            logMessage(" Složek: {progress.dirCount}", LogType.Operation);
+            logMessage(" Souborů: {progress.fileCount}", LogType.Operation);
+            logMessage(" Složek špatně: {progress.wrongDirCount}", LogType.Operation);
+            logMessage(" Souborů špatně: {progress.wrongFileCount}", LogType.Operation);
             pbScan.Value = (pbScan.Value == 100) ? 10 : (pbScan.Value + 10);
         }
 
@@ -51,10 +51,10 @@ namespace RenameRecursivelly
         {
             BackgroundScanFolderRes progress = e.Result as BackgroundScanFolderRes;
             logMessage("-- Scan VÝSLEDEK ---", LogType.Operation, true);
-            logMessage(String.Format(" Složek: {0}", progress.dirCount), LogType.Operation);
-            logMessage(String.Format(" Souborů: {0}", progress.fileCount), LogType.Operation);
-            logMessage(String.Format(" Složek špatně: {0}", progress.wrongDirCount), LogType.Operation);
-            logMessage(String.Format(" Souborů špatně: {0}", progress.wrongFileCount), LogType.Operation);
+            logMessage(" Složek: {progress.dirCount}", LogType.Operation);
+            logMessage(" Souborů: {progress.fileCount}", LogType.Operation);
+            logMessage(" Složek špatně: {progress.wrongDirCount}", LogType.Operation);
+            logMessage(" Souborů špatně: {progress.wrongFileCount}", LogType.Operation);
             logMessage("", LogType.Operation);
             logMessage("Scan skončil.", LogType.Operation);
             pbScan.Visible = false;
@@ -88,15 +88,15 @@ namespace RenameRecursivelly
                     totalFiles++;
             }
 
-            lblFolderCount.Text = String.Format("{0} adresářů", totalFolders.ToString());
-            lblFileCount.Text = String.Format("{0} souborů", totalFiles.ToString());
+            lblFolderCount.Text = "{totalFolders.ToString()} adresářů";
+            lblFileCount.Text = "{totalFiles.ToString()} souborů";
         }
 
 
         private void bwLoad_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             this.itemsToRename = ((BackgroundLoadFolderRes)e.Result).itemsToRename;
-            logMessage(String.Format("Načteno {0} položek...", this.itemsToRename.Count), LogType.Operation);
+            logMessage("Načteno {itemsToRename.Count} položek..."), LogType.Operation);
             pbLoad.Visible = false;
             btnLoad.Enabled = true;
             refreshRenameStatus();
@@ -147,14 +147,17 @@ namespace RenameRecursivelly
 
                     if (result == DialogResult.Cancel)
                     {
-                        logMessage(String.Format("Položka {0} přeskočena.", Path.Combine(item.path, item.name)), LogType.Rename, true);
+                        logMessage("Položka {Path.Combine(item.path, item.name)} přeskočena.", LogType.Rename, true);
                         continue;
                     }
 
                     if (result == DialogResult.Yes)
                     {
-                        logMessage(String.Format("({0})", item.path), LogType.Rename, true);
-                        logMessage(String.Format("{2} \"{0}\" --> \"{1}\"", item.name, item.normalizedName, (item.isDir ? "Adresář" : "Soubor")), LogType.Rename);
+                        logMessage("({item.path})", LogType.Rename, true);
+                        if (item.isDir)
+                            logMessage("Adresář \"{item.name}\" --> \"{item.normalizedName}\"", LogType.Rename);
+                        else
+                            logMessage("Soubor \"{item.name}\" --> \"{item.normalizedName}\"", LogType.Rename);
 
                         try
                         {
@@ -168,7 +171,7 @@ namespace RenameRecursivelly
                             csv.NextRecord();
                         } catch (Exception exc)
                         {
-                            logMessage(String.Format("Došlo k chybě: {0}{1}{2}", exc.Message, Environment.NewLine, exc.StackTrace), LogType.Rename);
+                            logMessage("Došlo k chybě: {exc.Message}{Environment.NewLine}{exc.StackTrace}", LogType.Rename);
                         }
                     }
                 }
@@ -243,9 +246,16 @@ namespace RenameRecursivelly
 
         private void btnScan_Click(object sender, EventArgs e)
         {
+            if (!Directory.Exists(folderBrowserDialog1.SelectedPath))
+            {
+                logMessage("Složka {folderBrowserDialog1.SelectedPath} neexistuje!", LogType.Operation);
+                return;
+            }
+            
             if (bwScan.IsBusy)
             {
                 logMessage("Operace probíhá...", LogType.Operation);
+                return;
             }
             logMessage("Scan začíná...", LogType.Operation, true);
             pbScan.Visible = true;
@@ -256,9 +266,16 @@ namespace RenameRecursivelly
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
+            if (!Directory.Exists(folderBrowserDialog1.SelectedPath))
+            {
+                logMessage("Složka {folderBrowserDialog1.SelectedPath} neexistuje!", LogType.Operation);
+                return;
+            }
+
             if (bwLoad.IsBusy)
             {
                 logMessage("Operace probíhá...", LogType.Operation);
+                return;
             }
 
             if (!(cbRenameFiles.Checked || cbRenameFolders.Checked))
