@@ -30,6 +30,7 @@ namespace RenameRecursivelly
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.lblFolder = new System.Windows.Forms.Label();
             this.btnChooseFolder = new System.Windows.Forms.Button();
@@ -54,6 +55,7 @@ namespace RenameRecursivelly
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tbOperations = new System.Windows.Forms.TextBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -321,6 +323,10 @@ namespace RenameRecursivelly
             this.tbOperations.Size = new System.Drawing.Size(677, 420);
             this.tbOperations.TabIndex = 4;
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -379,5 +385,6 @@ namespace RenameRecursivelly
         private TabPage tabPage1;
         private TabPage tabPage2;
         private TextBox tbOperations;
+        private Timer timer1;
     }
 }

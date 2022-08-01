@@ -40,10 +40,10 @@ namespace RenameRecursivelly
         {
             BackgroundScanFolderRes progress = e.UserState as BackgroundScanFolderRes;
             logMessage("-- Scan průběžné info", LogType.Operation);
-            logMessage(" Složek: {progress.dirCount}", LogType.Operation);
-            logMessage(" Souborů: {progress.fileCount}", LogType.Operation);
-            logMessage(" Složek špatně: {progress.wrongDirCount}", LogType.Operation);
-            logMessage(" Souborů špatně: {progress.wrongFileCount}", LogType.Operation);
+            logMessage($" Složek: {progress.dirCount}", LogType.Operation);
+            logMessage($" Souborů: {progress.fileCount}", LogType.Operation);
+            logMessage($" Složek špatně: {progress.wrongDirCount}", LogType.Operation);
+            logMessage($" Souborů špatně: {progress.wrongFileCount}", LogType.Operation);
             pbScan.Value = (pbScan.Value == 100) ? 10 : (pbScan.Value + 10);
         }
 
@@ -51,10 +51,10 @@ namespace RenameRecursivelly
         {
             BackgroundScanFolderRes progress = e.Result as BackgroundScanFolderRes;
             logMessage("-- Scan VÝSLEDEK ---", LogType.Operation, true);
-            logMessage(" Složek: {progress.dirCount}", LogType.Operation);
-            logMessage(" Souborů: {progress.fileCount}", LogType.Operation);
-            logMessage(" Složek špatně: {progress.wrongDirCount}", LogType.Operation);
-            logMessage(" Souborů špatně: {progress.wrongFileCount}", LogType.Operation);
+            logMessage($" Složek: {progress.dirCount}", LogType.Operation);
+            logMessage($" Souborů: {progress.fileCount}", LogType.Operation);
+            logMessage($" Složek špatně: {progress.wrongDirCount}", LogType.Operation);
+            logMessage($" Souborů špatně: {progress.wrongFileCount}", LogType.Operation);
             logMessage("", LogType.Operation);
             logMessage("Scan skončil.", LogType.Operation);
             pbScan.Visible = false;
@@ -88,15 +88,15 @@ namespace RenameRecursivelly
                     totalFiles++;
             }
 
-            lblFolderCount.Text = "{totalFolders.ToString()} adresářů";
-            lblFileCount.Text = "{totalFiles.ToString()} souborů";
+            lblFolderCount.Text = $"{totalFolders.ToString()} adresářů";
+            lblFileCount.Text = $"{totalFiles.ToString()} souborů";
         }
 
 
         private void bwLoad_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             this.itemsToRename = ((BackgroundLoadFolderRes)e.Result).itemsToRename;
-            logMessage("Načteno {itemsToRename.Count} položek..."), LogType.Operation);
+            logMessage($"Načteno {itemsToRename.Count} položek...", LogType.Operation);
             pbLoad.Visible = false;
             btnLoad.Enabled = true;
             refreshRenameStatus();
@@ -115,6 +115,8 @@ namespace RenameRecursivelly
             bwLoad.DoWork += bwLoad_DoWork;
             bwLoad.RunWorkerCompleted += bwLoad_RunWorkerCompleted;
             bwLoad.WorkerReportsProgress = true;
+
+            timer1.Enabled = true;
         }
 
         private void btnRename_Click(object sender, EventArgs e)
@@ -147,17 +149,17 @@ namespace RenameRecursivelly
 
                     if (result == DialogResult.Cancel)
                     {
-                        logMessage("Položka {Path.Combine(item.path, item.name)} přeskočena.", LogType.Rename, true);
+                        logMessage($"Položka {Path.Combine(item.path, item.name)} přeskočena.", LogType.Rename, true);
                         continue;
                     }
 
                     if (result == DialogResult.Yes)
                     {
-                        logMessage("({item.path})", LogType.Rename, true);
+                        logMessage($"({item.path})", LogType.Rename, true);
                         if (item.isDir)
-                            logMessage("Adresář \"{item.name}\" --> \"{item.normalizedName}\"", LogType.Rename);
+                            logMessage($"Adresář \"{item.name}\" --> \"{item.normalizedName}\"", LogType.Rename);
                         else
-                            logMessage("Soubor \"{item.name}\" --> \"{item.normalizedName}\"", LogType.Rename);
+                            logMessage($"Soubor \"{item.name}\" --> \"{item.normalizedName}\"", LogType.Rename);
 
                         try
                         {
@@ -171,7 +173,7 @@ namespace RenameRecursivelly
                             csv.NextRecord();
                         } catch (Exception exc)
                         {
-                            logMessage("Došlo k chybě: {exc.Message}{Environment.NewLine}{exc.StackTrace}", LogType.Rename);
+                            logMessage($"Došlo k chybě: {exc.Message}{Environment.NewLine}{exc.StackTrace}", LogType.Rename);
                         }
                     }
                 }
@@ -227,14 +229,14 @@ namespace RenameRecursivelly
         private void logMessage(string message, LogType type, bool separator = false)
         {
             TextBox destination = (type == LogType.Rename) ? tbLog : tbOperations;
-            
-            if (separator) logSeparator(destination);
-            destination.AppendText(Environment.NewLine + message);
-            destination.SelectionStart = this.tbLog.Text.Length;
-            destination.ScrollToCaret();
             tabLog.SelectedTab = (type == LogType.Rename) ? tabPage1 : tabPage2;
 
-            Log.Information("({type}): {message}", type, message);
+            if (separator) logSeparator(destination);
+            destination.AppendText(Environment.NewLine + message);
+            destination.SelectionStart = destination.Text.Length;
+            destination.ScrollToCaret();
+
+            Log.Information($"({type}): {message}", type, message);
         }
 
         private void logSeparator(TextBox destination)
@@ -248,13 +250,13 @@ namespace RenameRecursivelly
         {
             if (!Directory.Exists(folderBrowserDialog1.SelectedPath))
             {
-                logMessage("Složka {folderBrowserDialog1.SelectedPath} neexistuje!", LogType.Operation);
+                logMessage($"Složka {folderBrowserDialog1.SelectedPath} neexistuje!", LogType.Operation);
                 return;
             }
             
             if (bwScan.IsBusy)
             {
-                logMessage("Operace probíhá...", LogType.Operation);
+                logMessage($"Operace probíhá...", LogType.Operation);
                 return;
             }
             logMessage("Scan začíná...", LogType.Operation, true);
@@ -268,13 +270,13 @@ namespace RenameRecursivelly
         {
             if (!Directory.Exists(folderBrowserDialog1.SelectedPath))
             {
-                logMessage("Složka {folderBrowserDialog1.SelectedPath} neexistuje!", LogType.Operation);
+                logMessage($"Složka {folderBrowserDialog1.SelectedPath} neexistuje!", LogType.Operation);
                 return;
             }
 
             if (bwLoad.IsBusy)
             {
-                logMessage("Operace probíhá...", LogType.Operation);
+                logMessage($"Operace probíhá...", LogType.Operation);
                 return;
             }
 
@@ -299,6 +301,33 @@ namespace RenameRecursivelly
                 );
 
             bwLoad.RunWorkerAsync(args);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            btnRename.Enabled = !((itemsToRename is null) || (itemsToRename.Count == 0));
+
+            if (bwScan.IsBusy)
+            {
+                btnChooseFolder.Enabled = false;
+                btnLoad.Enabled = false;
+                btnScan.Enabled = false;
+                return;
+            }
+
+            if (bwLoad.IsBusy)
+            {
+                btnChooseFolder.Enabled = false;
+                btnLoad.Enabled = false;
+                btnScan.Enabled = false;
+                return;
+            }
+
+            btnChooseFolder.Enabled = true;
+
+            bool dirExistis = Directory.Exists(folderBrowserDialog1.SelectedPath);
+            btnLoad.Enabled = dirExistis;
+            btnScan.Enabled = dirExistis;
         }
     }
 }
